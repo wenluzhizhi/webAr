@@ -1,0 +1,22 @@
+@import "lib.scss";
+body{
+	overflow: hidden;
+	height: 100vh;
+}
+
+.container{
+  width: vw(750);
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+
+}
+.open-camera{
+	display: block;
+	background: #fff;
+	color: #000;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%);
+	position: absolute;
+}
