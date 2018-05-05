@@ -7,15 +7,42 @@ const ua = navigator.userAgent.toLowerCase(),
     isIphone = /(iPhone|iPad|iPod|iOS)/i.test(ua),
     isWeChat = /MicroMessenger/i.test(ua);
 
-const webAR = new WebAR(1000, '/recognize.php');
+const webAR = new WebAR();
+const startPanel = $(".openPanel");
+const scanPanel = $(".scan-panel");
 const openCamera = $("#openCamera");
 const video = $('#video')[0];
-let deviceId; //指定调用设备ID
 
-if (isIphone && isWeChat) {
-    $(".ioswxPanel").show();
+
+
+/*
+ * 支持打开摄像头
+ */
+function success(){
+  //显示启动页
+  startPanel.show();
+}
+/*
+ * 不支持开启摄像头
+ */
+function fail(){
+
+    //如果是iphone和weiChat 显示引导页
+    if (isIphone && isWeChat) {
+      $(".ioswxPanel").show();
+    }
+    //
+}
+/*
+ * 摄像头开启成功
+ */
+function openSuccess(){
+  //
+  startPanel.hide();
 }
 
+
+let deviceId; //指定调用设备ID
 // 列出视频设备
 webAR.listCamera()
     .then((videoDevice) => {
@@ -33,17 +60,8 @@ webAR.listCamera()
     .catch((err) => {
         console.log(err);
         fail();
-
+        //
     });
-
-//
-function success(){
-  $(".openPanel").show();
-}
-//打开摄像头失败
-function fail(){
-    console.log('fail');
-}
 
 
 openCamera.on('click', function() {
@@ -67,7 +85,10 @@ openCamera.on('click', function() {
                     }
                 }
             }, 500);
-            openCamera.hide();
+
+            openSuccess();
+
+
         })
         .catch((err) => {
             alert('打开视频设备失败');
