@@ -13,7 +13,7 @@ const video = $('#video')[0];
 let deviceId; //指定调用设备ID
 
 if (isIphone && isWeChat) {
-
+    $(".ioswxPanel").show();
 }
 
 // 列出视频设备
@@ -27,14 +27,23 @@ webAR.listCamera()
         }else if(isIphone){
         	deviceId = videoDevice[0].deviceId;
         }
-       
+        success();
+
     })
     .catch((err) => {
         console.log(err);
-        alert('该设备不支持打开摄像头');
+        fail();
 
     });
 
+//
+function success(){
+  $(".openPanel").show();
+}
+//打开摄像头失败
+function fail(){
+    console.log('fail');
+}
 
 
 openCamera.on('click', function() {

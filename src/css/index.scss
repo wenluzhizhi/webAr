@@ -7,16 +7,59 @@ body{
 .container{
   width: vw(750);
   height: 100%;
-  background: #000;
+  background: #fff;
   overflow: hidden;
 
 }
 .open-camera{
 	display: block;
-	background: #fff;
-	color: #000;
-	top: 50%;
+	background: url(../img/button.png) no-repeat;
+	background-size: contain;
+  width: vw(340);
+	height: vw(146);
 	left: 50%;
 	transform: translateX(-50%);
 	position: absolute;
+	top: vw(400);
+}
+.ioswxPanel{
+	background: url(../img/01.jpg) no-repeat;
+	width: vw(750);
+	height: vw(987);
+	background-size: contain;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 0;
+	z-index: 10;
+	display: none;
+}
+.openPanel{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	.s-title{
+		background: url(../img/subhead.png) no-repeat;
+		width: vw(436);
+		height: vw(23);
+		background-size: contain;
+		left: 50%;
+		transform: translateX(-50%);
+		position: absolute;
+		top: vw(75);
+	}
+	.m-title{
+		background: url(../img/heading.png) no-repeat;
+		background-size: contain;
+		width: vw(644);
+		height: vw(145);
+		left: 50%;
+		transform: translateX(-50%);
+		position: absolute;
+		top:vw(140);
+	}
+	.bottombg{
+
+	}
 }
