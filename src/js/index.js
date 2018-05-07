@@ -22,12 +22,13 @@ const scanButon = $(".scan-button");
 function success(){
   //显示启动页
   startPanel.show();
+
 }
 /*
  * 不支持开启摄像头
  */
 function fail(){
-
+    
     //如果是iphone和weiChat 显示引导页
     if (isIphone && isWeChat) {
       $(".ioswxPanel").show();

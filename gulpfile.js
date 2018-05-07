@@ -99,6 +99,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 gulp.task('serve', () => {
     runSequence(['clean'], ['styles', 'scripts','img'], () => {
         browserSync.init({
+            https:true,
             notify: false,
             port: port,
             server: {
