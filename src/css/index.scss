@@ -73,7 +73,7 @@ html,body{
 		position: absolute;
 		top:vw(320);
 	}
-	
+
 }
 
 .scan-panel{
@@ -82,6 +82,7 @@ html,body{
 	position: absolute;
 	top: 0;
 	left: 0;
+	display: none;
 	.scan-boder{
 		background: url(../img/scan.png) no-repeat;
 		background-size: 100% 100%;
@@ -90,5 +91,27 @@ html,body{
 		left: 50%;
 		transform: translateX(-50%);
 		position: absolute;
+		top: 10%;
+	}
+	.scan-tip{
+		background: url(../img/text.png) no-repeat;
+		background-size: 100% 100%;
+		width: vw(424);
+		height: vw(35);
+		left: 50%;
+		transform: translateX(-50%);
+		position: absolute;
+		top: 5%;
+
+	}
+	.scan-button{
+		background: url(../img/scanok.png) no-repeat;
+		background-size: 100% 100%;
+		width: vw(646);
+		height: vw(116);
+		left: 50%;
+		transform: translateX(-50%);
+		position: absolute;
+		top: 85%;
 	}
 }

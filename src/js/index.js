@@ -12,6 +12,7 @@ const startPanel = $(".openPanel");
 const scanPanel = $(".scan-panel");
 const openCamera = $("#openCamera");
 const video = $('#video')[0];
+const scanButon = $(".scan-button");
 
 
 
@@ -32,7 +33,7 @@ function fail(){
       $(".ioswxPanel").show();
       return;
     }
-    
+
     //
 }
 /*
@@ -41,6 +42,11 @@ function fail(){
 function openSuccess(){
   //
   startPanel.hide();
+  scanPanel.show();
+}
+//识别
+function scan(){
+
 }
 
 
@@ -96,5 +102,8 @@ openCamera.on('click', function() {
             alert('打开视频设备失败');
         });
 
-
 });
+//对准完成按钮
+scanButon.on('click',function(){
+  scan();
+})
