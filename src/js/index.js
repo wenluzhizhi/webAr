@@ -1,12 +1,12 @@
 
 import WebAR from './webar';
 import './preload';
-import VConsole from './vconsole.min';
+// import VConsole from './vconsole.min';
 // import App from './farmerapp.js'
 // import * as THREE from '../libs/three.module.js';
-
-
-new VConsole();
+// 
+//
+// new VConsole();
 
 const ua = navigator.userAgent.toLowerCase(),
     isAndroid = /android/i.test(ua),
@@ -20,17 +20,22 @@ const scanPanel = $(".scan-panel");
 const btnOpenCamera = $("#openCamera");
 const video = $('#video')[0];
 const scanButon = $(".scan-button");
+const introPanel = $(".intro");
+const moreButton = $(".more-button");
+const videoPanel = $(".video-panel");
+const returnVideo = $(".returnVideo");
 
 //是否支持
 let supportVideo = true;
 
 //点击开启
 btnOpenCamera.on('click', function() {
+  startPanel.hide();
   if(supportVideo){
-    startPanel.hide();
     scanPanel.show();
   }else{
-    alter('直接观看视频')
+    //播放视频
+    videoPanel.show();
   }
 });
 
@@ -62,6 +67,7 @@ function fail() {
 //识别
 function scan() {
     scanPanel.hide();
+    videoPanel.show();
     //loadThree();
 }
 
@@ -119,7 +125,18 @@ function openCamera(){
 //对准完成按钮
 scanButon.on('click', function() {
     scan();
+});
+//more
+moreButton.on('click',function(){
+  videoPanel.hide();
+  introPanel.show();
 })
+//
+returnVideo.on('click',function(){
+  videoPanel.show();
+  introPanel.hide();
+})
+
 //loadThree();
 function loadThree() {
     $("#threecontainer").show();

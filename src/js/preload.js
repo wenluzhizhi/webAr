@@ -21,7 +21,7 @@ function handleFileLoad(event) {
 }
 
 function handleComplete() {
-    
+
      $preload.hide();
      $container.show();
 }
