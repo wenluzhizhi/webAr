@@ -1,7 +1,7 @@
 /*
  *  rem
  */
-@function rem($px, $base-font-size: 75px) {
+@function rem($px, $base-font-size: 100px) {
     @if (unitless($px)) {
         @return rem($px + 0px);
     } @else if (unit($px) == rem) {

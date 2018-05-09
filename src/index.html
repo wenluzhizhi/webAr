@@ -12,7 +12,9 @@
     <!-- Place favicon.ico in the root directory -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!--lib-flexible (https://github.com/amfe/lib-flexible)-->
-    <script></script>
+    <script>
+    (function(window){var STD_WIDTH=750,STD_FONT_SIZE=100,root=document.documentElement,fontSize,scale,tDelayResize=null,onResizeCbs=[],pxToRem=function(px){return px/fontSize},stdPxToRem=function(stdPx){return stdPx/STD_FONT_SIZE},remToPx=function(rem){return rem*fontSize},remToStdPx=function(rem){return rem*STD_FONT_SIZE},pxToStdPx=function(px){return px/scale},stdPxToPx=function(px){return px*scale},resize=function(){scale=root.clientWidth/STD_WIDTH;var ratio=root.clientWidth/root.clientHeight;var std_ratio=750/1206;if(ratio>std_ratio){scale=std_ratio*root.clientHeight/750}var newFontSize=scale*STD_FONT_SIZE;if(fontSize!=newFontSize){fontSize=newFontSize;autoRem.fontSize=fontSize;autoRem.scale=scale;root.style.fontSize=fontSize+"px";onResizeCbs.forEach(function(onResizeCb){onResizeCb()})}},delayResize=function(){clearTimeout(tDelayResize);tDelayResize=setTimeout(resize,100)},onResize=function(onResizeCb){if(onResizeCb){onResizeCbs.push(onResizeCb)}},offResize=function(onResizeCb){if(onResizeCb){var idx=onResizeCbs.indexOf(onResizeCb);if(~idx){onResizeCbs.splice(idx,1)}}else{onResizeCbs=[]}},autoRem={pxToRem:pxToRem,stdPxToRem:stdPxToRem,remToPx:remToPx,remToStdPx:remToStdPx,pxToStdPx:pxToStdPx,stdPxToPx:stdPxToPx,STD_FONT_SIZE:STD_FONT_SIZE,STD_WIDTH:STD_WIDTH,fontSize:null,scale:null,onResize:onResize,offResize:offResize};resize();window.addEventListener("resize",delayResize,false);window.autoRem=autoRem})(window);
+    </script>
     <!-- lib-flexible end-->
 
     <!-- build:css css/index.css -->
@@ -22,6 +24,9 @@
   </head>
   <body>
     <div class="container">
+        <div class="preload" id="preload">
+
+        </div>
         <video id="video" playsinline=""></video>
 
         <div class="openPanel">
@@ -46,10 +51,16 @@
           </div>
         </div>
     </div>
-
+    <div class="mask lock flex flex-v flex-align-center flex-pack-center">
+    <div class="lock-bg">
+    </div>
+    <p class="lock-txt">
+        为了更好的体验，请使用竖屏浏览
+    </p>
+</div>
 
     <!-- build:js js/index.js -->
-    <script src="../bower_components/zepto/zepto.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="js/adapter.js"></script>
     <script src="js/index.js"></script>
     <!-- endbuild -->
