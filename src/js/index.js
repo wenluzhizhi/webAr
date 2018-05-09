@@ -2,8 +2,8 @@
 import WebAR from './webar';
 import './preload';
 import VConsole from './vconsole.min';
-import App from './farmerapp.js'
-import * as THREE from '../libs/three.module.js';
+// import App from './farmerapp.js'
+// import * as THREE from '../libs/three.module.js';
 
 
 new VConsole();
@@ -62,7 +62,7 @@ function fail() {
 //识别
 function scan() {
     scanPanel.hide();
-    loadThree();
+    //loadThree();
 }
 
 let deviceId; //指定调用设备ID
@@ -108,8 +108,7 @@ function openCamera(){
 
       }, 500);
 
-      // var offsetHeight = winHeight * 0.16;
-      // $(".scan-boder").css("border-top", "solid " + offsetHeight + "px rgba(0,0,0,.3)");
+
 
   }).catch((err) => {
       alert('打开视频设备失败');

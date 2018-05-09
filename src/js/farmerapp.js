@@ -1,6 +1,6 @@
 import * as THREE from '../libs/three.module.js';
 import DeviceOrientationControls from '../utils/deviceorientationcontrols.js';
-import $ from '../libs/jquery-3.3.1.js';
+
 import VideoMaterial from './videomaterial';
 import {Mesh, MeshLambertMaterial} from "../libs/three.module";
 
