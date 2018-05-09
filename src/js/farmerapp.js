@@ -23,11 +23,8 @@ class FarmerApp {
 
         this.controls = new DeviceOrientationControls(this.camera, this.renderer);
         this.controls.connect();
-        this.videoMaterial = new VideoMaterial(this.scene);
+        this.videoMaterial = new VideoMaterial(this.camer, this.scene, 100.0, 600.0);
     }
-
-
-
 
     update() {
         window.requestAnimationFrame(() => {
