@@ -12,7 +12,7 @@ const babelify = require('babelify');
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-var dev = true;
+var dev = false;
 const port = 9000;
 const compress = false;
 
@@ -38,7 +38,7 @@ gulp.task('styles', () => {
 gulp.task('scripts', () => {
 
     return browserify("src/js/index.js", {
-            debug: true
+            debug: dev
         })
         .transform("babelify",{ "presets": ["es2015"] })
         .bundle()
