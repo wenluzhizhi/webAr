@@ -2,6 +2,9 @@
 import WebAR from './webar';
 import './preload';
 import VConsole from './vconsole.min';
+import App from './farmerapp.js'
+import * as THREE from '../libs/three.module.js';
+
 
 new VConsole();
 
@@ -31,14 +34,15 @@ btnOpenCamera.on('click', function() {
   }
 });
 
+
+$("#threecontainer").hide();
+$("#myvideo").hide();
 /*
  * 支持打开摄像头
  */
 function success() {
     //显示启动页
     startPanel.show();
-    console.log('xx');
-
 }
 /*
  * 不支持开启摄像头
@@ -57,7 +61,8 @@ function fail() {
 
 //识别
 function scan() {
-
+    scanPanel.hide();
+    loadThree();
 }
 
 let deviceId; //指定调用设备ID
@@ -89,7 +94,6 @@ function openCamera(){
       window.setTimeout(() => {
           let videoWidth = video.offsetWidth;
           let videoHeight = video.offsetHeight;
-
           if (window.innerWidth < window.innerHeight) {
               // 竖屏
               if (videoHeight < window.innerHeight) {
@@ -117,3 +121,13 @@ function openCamera(){
 scanButon.on('click', function() {
     scan();
 })
+//loadThree();
+function loadThree() {
+    $("#threecontainer").show();
+    $("#myvideovideo").show();
+    var oVideo = document.getElementById('myvideo');
+    oVideo.play();
+    const app = new App();
+    app.update();
+    console.log("started lf app!");
+}
