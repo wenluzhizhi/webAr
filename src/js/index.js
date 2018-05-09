@@ -23,12 +23,21 @@ const scanButon = $(".scan-button");
 
 //是否支持
 let supportVideo = true;
-
+var farmerVideo;
 //点击开启
 btnOpenCamera.on('click', function() {
   if(supportVideo){
     startPanel.hide();
     scanPanel.show();
+
+      $("#threecontainer").show();
+      $("#myvideo").show();
+      farmerVideo = document.getElementById('myvideo');
+      const app = new App();
+      app.update();
+      $("#threecontainer").hide();
+      $("#myvideo").hide();
+
   }else{
     alter('直接观看视频')
   }
@@ -121,13 +130,11 @@ function openCamera(){
 scanButon.on('click', function() {
     scan();
 })
-//loadThree();
+
 function loadThree() {
     $("#threecontainer").show();
-    $("#myvideovideo").show();
-    var oVideo = document.getElementById('myvideo');
-    oVideo.play();
-    const app = new App();
-    app.update();
+    $("#myvideo").show();
+    farmerVideo.play();
     console.log("started lf app!");
+
 }
