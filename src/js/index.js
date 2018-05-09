@@ -2,9 +2,9 @@
 import WebAR from './webar';
 import './preload';
 // import VConsole from './vconsole.min';
-// import App from './farmerapp.js'
-// import * as THREE from '../libs/three.module.js';
-// 
+import App from './farmerapp.js'
+import * as THREE from '../libs/three.module.js';
+//
 //
 // new VConsole();
 

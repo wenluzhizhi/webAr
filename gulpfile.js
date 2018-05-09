@@ -14,7 +14,7 @@ const reload = browserSync.reload;
 
 var dev = false;
 const port = 9000;
-const compress = false;
+const compress = true;
 
 gulp.task('styles', () => {
     return gulp.src('src/css/*.scss')
