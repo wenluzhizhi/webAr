@@ -1,5 +1,9 @@
 import WebAR from './webar';
 import VConsole from './vconsole.min';
+import App from './farmerapp.js'
+import * as THREE from '../libs/three.module.js';
+
+
 new VConsole();
 
 const ua = navigator.userAgent.toLowerCase(),
@@ -16,23 +20,24 @@ const scanButon = $(".scan-button");
 
 
 
+
+$("#threecontainer").hide();
+$("#myvideo").hide();
 /*
  * 支持打开摄像头
  */
 function success(){
-  //显示启动页
-  startPanel.show();
-
+    //显示启动页
+    startPanel.show();
 }
 /*
  * 不支持开启摄像头
  */
 function fail(){
-    
     //如果是iphone和weiChat 显示引导页
     if (isIphone && isWeChat) {
-      $(".ioswxPanel").show();
-      return;
+        $(".ioswxPanel").show();
+        return;
     }
 
     //
@@ -41,13 +46,13 @@ function fail(){
  * 摄像头开启成功
  */
 function openSuccess(){
-  //
-  startPanel.hide();
-  scanPanel.show();
+    startPanel.hide();
+    scanPanel.show();
 }
 //识别
 function scan(){
-
+    scanPanel.hide();
+    loadThree();
 }
 
 
@@ -58,10 +63,10 @@ webAR.listCamera()
         console.log(videoDevice);
         //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
         if(isAndroid){
-        	console.log('android');
-        	deviceId = videoDevice[videoDevice.length -1].deviceId;
+            console.log('android');
+            deviceId = videoDevice[videoDevice.length -1].deviceId;
         }else if(isIphone){
-        	deviceId = videoDevice[0].deviceId;
+            deviceId = videoDevice[0].deviceId;
         }
         success();
 
@@ -81,7 +86,6 @@ openCamera.on('click', function() {
             window.setTimeout(() => {
                 let videoWidth = video.offsetWidth;
                 let videoHeight = video.offsetHeight;
-
                 if (window.innerWidth < window.innerHeight) {
                     // 竖屏
                     if (videoHeight < window.innerHeight) {
@@ -106,5 +110,15 @@ openCamera.on('click', function() {
 });
 //对准完成按钮
 scanButon.on('click',function(){
-  scan();
+    scan();
 })
+//loadThree();
+function loadThree() {
+    $("#threecontainer").show();
+    $("#myvideovideo").show();
+    var oVideo = document.getElementById('myvideo');
+    oVideo.play();
+    const app = new App();
+    app.update();
+    console.log("started lf app!");
+}
