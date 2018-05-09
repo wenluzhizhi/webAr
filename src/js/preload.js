@@ -1,7 +1,4 @@
-window.createjs = {}
-
-require('./preloadjs.min.js');
-require('./soundjs.min.js');
+console.log(createjs);
 
 let $preload = $("#preload");
 let $progress = $("#progress");
@@ -25,7 +22,7 @@ function handleFileLoad(event) {
 }
 
 function handleComplete() {
-  
+
      $preload.hide();
     // $container.show();
 }

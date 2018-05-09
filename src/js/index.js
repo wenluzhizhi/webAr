@@ -1,5 +1,6 @@
 
 import WebAR from './webar';
+import './preload';
 import VConsole from './vconsole.min';
 
 new VConsole();
@@ -103,8 +104,8 @@ function openCamera(){
 
       }, 500);
 
-      var offsetHeight = winHeight * 0.16;
-      $(".scan-boder").css("border-top", "solid " + offsetHeight + "px rgba(0,0,0,.3)");
+      // var offsetHeight = winHeight * 0.16;
+      // $(".scan-boder").css("border-top", "solid " + offsetHeight + "px rgba(0,0,0,.3)");
 
   }).catch((err) => {
       alert('打开视频设备失败');
