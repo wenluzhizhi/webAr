@@ -14,7 +14,6 @@ preload.loadManifest([
 	{src:"../img/bg.jpg"},
 	{src:"../img/button.png"},
 	{src:"../resources/farmerpainting.mp4"},
-	//farmerpainting.mp4
 ]);
 
 function handleFileLoad(event) {

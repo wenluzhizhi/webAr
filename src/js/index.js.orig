@@ -24,6 +24,8 @@ const introPanel = $(".intro");
 const moreButton = $(".more-button");
 const videoPanel = $(".video-panel");
 const returnVideo = $(".returnVideo");
+const app = new App();
+
 
 //是否支持
 let supportVideo = true;
@@ -37,7 +39,6 @@ btnOpenCamera.on('click', function() {
       $("#threecontainer").show();
       $("#myvideo").show();
       farmerVideo = document.getElementById('myvideo');
-      const app = new App();
       app.update();
       $("#threecontainer").hide();
       $("#myvideo").hide();
@@ -75,9 +76,12 @@ function fail() {
 
 //识别
 function scan() {
+    let top = $(".scan-boder").offset().top;
+    let height = $(".scan-boder").height();
+    app.getVideo().resetPosition(top, height);
     scanPanel.hide();
     videoPanel.show();
-    //loadThree();
+    loadThree();
 }
 
 let deviceId; //指定调用设备ID
@@ -139,21 +143,34 @@ scanButon.on('click', function() {
 moreButton.on('click',function(){
   videoPanel.hide();
   introPanel.show();
+    moreInof();
 })
-//
+//back
 returnVideo.on('click',function(){
   videoPanel.show();
   introPanel.hide();
+  moreInofback();
 })
-
 <<<<<<< HEAD
-//loadThree();
+
 =======
->>>>>>> 1f10849ba86c7f2295a375f47eab0e115a515886
+>>>>>>> d59f9104bb76aa05025bef2a1d87bd276c09e1b7
 function loadThree() {
     $("#threecontainer").show();
     $("#myvideo").show();
     farmerVideo.play();
     console.log("started lf app!");
 
+}
+
+function moreInof() {
+    $("#threecontainer").hide();
+    $("#myvideo").hide();
+    farmerVideo.pause();
+
+
+}function moreInofback() {
+    $("#threecontainer").show();
+    $("#myvideo").show();
+    farmerVideo.play();
 }

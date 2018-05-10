@@ -5,13 +5,13 @@ import * as THREE from '../libs/three.module.js';
  * material to play video
  */
 class VideoMaterial {
-    constructor(camera, scene, top, height) {
+    constructor(camera, scene) {
         this.width = 256.0;
         this.height = 512.0;
         this.scale = 368.0 / this.width;
         this.camera = camera;
         this.scene = scene;
-        this.video = $('#video')[0];
+        this.video = $('#myvideo')[0];
         this.image = document.createElement('canvas');
         this.image.width = this.width;
         this.image.height = this.height;
@@ -22,27 +22,17 @@ class VideoMaterial {
         this.material = new THREE.MeshBasicMaterial({ map: this.texture, overdraw: 0.5 });
         this.plane = new THREE.PlaneGeometry(this.width, this.height, 4, 4);
         this.mesh = new THREE.Mesh(this.plane, this.material);
-        // this.camera.add(this.mesh);
+        this.mesh.scale.x = this.scale;
+        this.scene.add(this.mesh);
+    }
+
+    resetPosition(top, height) {
         let y = this.height * (window.innerHeight * 0.5 - (top + height * 0.5)) / height;
-        let z = -((this.height * window.innerHeight) / (2.0 * height * Math.tan(THREE.Math.degToRad(0.5 * camera.fov))));
-        // console.log("y = " + y);
-        // console.log("z = " + z);
-        // this.mesh.position.set(0, y, z);
-        // console.log('camera rotation = ' + this.camera.rotation);
-        // console.log(this.mesh.position);
-        // let worldPos = this.mesh.position.clone();
-        // worldPos = this.camera.localToWorld(worldPos.clone());
-        // console.log(worldPos);
-        // worldPos = this.mesh.getWorldPosition();
-        // console.log(worldPos);
-        // // console.log(this.camera.getWorldPosition(this.mesh.position.clone()));
+        let z = -((this.height * window.innerHeight) / (2.0 * height * Math.tan(THREE.Math.degToRad(0.5 * this.camera.fov))));
         this.mesh.position.set(0., y, z);
         this.camera.updateMatrixWorld(true);
         this.camera.localToWorld(this.mesh.position);
         this.camera.getWorldQuaternion(this.mesh.quaternion);
-        this.mesh.scale.x = this.scale;
-        this.scene.add(this.mesh);
-        // console.log(this.camera.getWorldPosition(this.mesh.position.clone()));
     }
 
     /**

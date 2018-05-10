@@ -13,12 +13,12 @@ preload.loadManifest([
     {src:"../img/mainbg.gif"},
 	{src:"../img/bg.jpg"},
 	{src:"../img/button.png"},
-<<<<<<< HEAD
-=======
 	{src:"../resources/farmerpainting.mp4"},
+<<<<<<< HEAD
 	//farmerpainting.mp4
->>>>>>> 1f10849ba86c7f2295a375f47eab0e115a515886
+=======
     // { id: "music", src: "http://storage.jd.com/web-static/735ef47dd77d0c8fa69b3370f59aef81.mp4"},
+>>>>>>> d59f9104bb76aa05025bef2a1d87bd276c09e1b7
 ]);
 
 function handleFileLoad(event) {

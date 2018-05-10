@@ -25,9 +25,11 @@ class FarmerApp {
         this.controls.connect();
 
         this.camera.rotation.x = THREE.Math.degToRad(45);
-        let top = 100;//$(".scan-boder").top();
-        let height = $(".scan-boder").height();
-        this.videoMaterial = new VideoMaterial(this.camera, this.scene, top, height);
+        this.videoMaterial = new VideoMaterial(this.camera, this.scene);
+    }
+
+    getVideo() {
+        return this.videoMaterial;
     }
 
     update() {
@@ -35,6 +37,7 @@ class FarmerApp {
             this.update();
         });
         this.controls.update();
+       // console.log(this.camera.rotation);
         this.videoMaterial.update();
         this.renderer.render(this.scene, this.camera);
 
