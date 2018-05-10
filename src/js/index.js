@@ -24,6 +24,8 @@ const introPanel = $(".intro");
 const moreButton = $(".more-button");
 const videoPanel = $(".video-panel");
 const returnVideo = $(".returnVideo");
+const app = new App();
+
 
 //是否支持
 let supportVideo = true;
@@ -37,7 +39,6 @@ btnOpenCamera.on('click', function() {
       $("#threecontainer").show();
       $("#myvideo").show();
       farmerVideo = document.getElementById('myvideo');
-      const app = new App();
       app.update();
       $("#threecontainer").hide();
       $("#myvideo").hide();
@@ -75,6 +76,9 @@ function fail() {
 
 //识别
 function scan() {
+    let top = $(".scan-boder").offset().top;
+    let height = $(".scan-boder").height();
+    app.getVideo().resetPosition(top, height);
     scanPanel.hide();
     videoPanel.show();
     loadThree();
@@ -137,7 +141,6 @@ scanButon.on('click', function() {
 });
 //more
 moreButton.on('click',function(){
-    //alert("more button");
   videoPanel.hide();
   introPanel.show();
     moreInof();
