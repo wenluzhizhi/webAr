@@ -1,6 +1,6 @@
 import * as THREE from '../libs/three.module.js';
 import DeviceOrientationControls from '../utils/deviceorientationcontrols.js';
-import $ from '../libs/jquery-3.3.1.js';
+
 import VideoMaterial from './videomaterial';
 import {Mesh, MeshLambertMaterial} from "../libs/three.module";
 
@@ -24,7 +24,7 @@ class FarmerApp {
         this.controls = new DeviceOrientationControls(this.camera, this.renderer);
         this.controls.connect();
 
-        this.camera.rotation.x = THREE.Math.degToRad(45);
+ //       this.camera.rotation.x = THREE.Math.degToRad(45);
         let top = 100;//$(".scan-boder").top();
         let height = $(".scan-boder").height();
         this.videoMaterial = new VideoMaterial(this.camera, this.scene, top, height);
@@ -35,6 +35,7 @@ class FarmerApp {
             this.update();
         });
         this.controls.update();
+       // console.log(this.camera.rotation);
         this.videoMaterial.update();
         this.renderer.render(this.scene, this.camera);
 

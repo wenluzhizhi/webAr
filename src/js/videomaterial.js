@@ -11,7 +11,7 @@ class VideoMaterial {
         this.scale = 368.0 / this.width;
         this.camera = camera;
         this.scene = scene;
-        this.video = $('#video')[0];
+        this.video = $('#myvideo')[0];
         this.image = document.createElement('canvas');
         this.image.width = this.width;
         this.image.height = this.height;

@@ -1,5 +1,6 @@
 @import "lib.scss";
 @import "lock.scss";
+
 html,body{
 	overflow: hidden;
 	height: 100%;
@@ -32,15 +33,14 @@ html,body{
   width: 100%;
   height: 100%;
   background: #fff;
-  overflow: hidden;
-	position: relative;
-
+  position: relative;
+  display: none;
 }
 .preload{
 	position: absolute;
 	z-index: 20;
-	background: url(../img/loading.jpg) no-repeat center center #000;
-	background-size: 100% 100%;
+	background: url(../img/loading.jpg) no-repeat center 30% #000;
+	background-size: contain;
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -49,10 +49,10 @@ html,body{
 }
 .open-camera{
 	display: block;
-	background: url(../img/button.png) no-repeat;
+	background: url(../img/button.gif) no-repeat;
 	background-size: cover;
-  width: rem(665);
-	height: rem(88);
+  width: rem(338);
+	height: rem(447);
 	left: 50%;
 	transform: translateX(-50%);
 	position: absolute;
@@ -67,7 +67,7 @@ html,body{
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 10;
+	z-index: 200;
 	display: none;
 }
 .openPanel{
@@ -75,40 +75,14 @@ html,body{
 	width: 100%;
 	position: absolute;
 	top: 0;
-	background: url(../img/bg.jpg) no-repeat center top;
+	background: url(../img/mainbg.jpg) no-repeat center top #000;
 	background-size: 100% 100%;
-	display: none;
 	z-index: 10;
-	.s-title{
-		background: url(../img/subhead.png) no-repeat;
-		width: rem(436);
-		height: rem(23);
-		background-size: contain;
-		left: 50%;
-		transform: translateX(-50%);
-		position: absolute;
-		top: rem(75);
-	}
-	.m-title{
-		background: url(../img/heading.png) no-repeat;
-		background-size: contain;
-		width: rem(644);
-		height: rem(145);
-		left: 50%;
-		transform: translateX(-50%);
-		position: absolute;
-		top:rem(140);
-	}
-	.arrow{
-		background: url(../img/arrow.png) no-repeat;
-		background-size: contain;
-		width: rem(162);
-		height: rem(32);
-		left: 50%;
-		transform: translateX(-50%);
-		position: absolute;
-		top:rem(320);
-	}
+	// .light{
+	// 	background: url(../img/mainbg.jpg) no-repeat center top #000;
+	// 	background-size: 100% 100%;
+	// }
+
 
 }
 
@@ -163,28 +137,114 @@ html,body{
 		top: 85%;
 		z-index: 1;
 	}
+}
+.video-panel{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.5);
+	display: none;
+	z-index: 11;
 
-
+	.more-button{
+		background: url(../img/more.png) no-repeat;
+		background-size: 100% 100%;
+		width: rem(679);
+		height: rem(120);
+		left: 50%;
+		transform: translateX(-50%);
+		position: absolute;
+		top: 85%;
+		z-index: 1;
+	}
 }
 .intro{
-	background: rgba(0,0,0,.3);
+	background: rgba(0,0,0,.5);
 	position: absolute;
 	z-index: 10;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+	overflow-x:hidden;
 	display: none;
 	.content{
-		width: 452px;
+		width: 505px;
 		margin-left: rem(44);
 		margin-top:rem(70);
+		overflow: hidden;
 		.a-pic{
 			background: url(../img/pic.png) no-repeat;
-			background-size: 100% 100%;
+			background-size: contain;
 			overflow: hidden;
 			width: rem(454);
 			height: rem(453);
 		}
+		.intro1{
+			background: url(../img/intro1.png) no-repeat;
+			background-size: contain;
+			width: rem(505);
+			height: rem(565);
+			margin-top: rem(40);
+		}
+		.intro2{
+			background: url(../img/intro2.png) no-repeat;
+			background-size: contain;
+			width: rem(505);
+			height: rem(606);
+			margin-top: rem(60);
+
+		}
+		.intro3{
+			background: url(../img/intro3.png) no-repeat;
+			background-size: contain;
+			width: rem(503);
+			height: rem(388);
+			margin-top: rem(60);
+			padding-bottom: rem(60);
+		}
+
 	}
+	.f-rbutton{
+		background: url(../img/pagebutton.png) no-repeat;
+		background-size: contain;
+		width: rem(128);
+		height: rem(491);
+		position: fixed;
+		right: rem(50);
+		top: rem(40);
+		a{
+			display: block;
+			width: rem(81);
+			height: rem(224);
+		}
+	}
+}
+.progress{
+	width: rem(585);
+	height: rem(54);
+	position: absolute;
+	left: 50%;
+	top: 70%;
+	transform: translateX(-50%);
+	background:url(../img/progress.png) no-repeat center center;
+	background-size: rem(541) rem(7);
+	.progress-inner{
+		width: 0;
+		height: rem(54);
+		background: url(../img/progress1.png) no-repeat;
+		background-size: 100% 100%;
+	}
+}
+.kqz{
+	position: absolute;
+	left: 50%;
+	top:  75%;
+	transform: translateX(-50%);
+	background:url(../img/kaiqi.png) no-repeat center center;
+	background-size: 100% 100%;
+	width: rem(110);
+	height: rem(29);
 }
