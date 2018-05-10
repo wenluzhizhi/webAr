@@ -52,21 +52,17 @@
 }
 
 .lock {
-    background-color: #03154a;
+    background-color: #141414;
     color: #FFFFFF;
     z-index: 9999;
-    font-size: rem(9);
 }
 
 .lock-bg {
-    width: rem(67);
-    height: rem(108);
-    background: url("http://img11.360buyimg.com/cms/jfs/t1111/59/483894116/1097/17b6bfef/5527a0c1N3c992211.png") 0 0 no-repeat;
-    background-size: rem(67) auto;
-    -webkit-animation: lock 3s infinite 1.5s linear;
-    animation: lock 3s infinite 1.5s linear;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+    width: rem(402);
+    height: rem(438);
+    background: url(../img/lock.png) 0 0 no-repeat;
+    background-size: contain;
+
 }
 
 .lock-txt {

@@ -32,7 +32,7 @@ html,body{
 .container{
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: #000;
   position: relative;
   display: none;
 }
@@ -47,6 +47,14 @@ html,body{
 	left: 0;
 
 }
+.bgbg{
+	background: url(../img/mainbg1.png) no-repeat center;
+	background-size: contain;
+	width: 100%;
+	height: rem(331);
+	position: absolute;
+	top: 60%;
+}
 .open-camera{
 	display: block;
 	background: url(../img/button.gif) no-repeat;
@@ -56,7 +64,7 @@ html,body{
 	left: 50%;
 	transform: translateX(-50%);
 	position: absolute;
-	top: rem(380);
+	top: rem(-40);
 
 }
 .ioswxPanel{
@@ -72,16 +80,24 @@ html,body{
 }
 .openPanel{
 	height: 100%;
-	width: 100%;
+	width: rem(750);
 	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 	top: 0;
-	background: url(../img/mainbg.jpg) no-repeat center top #000;
+	background: url(../img/mainbg.jpg) no-repeat center rem(-100) #000;
 	background-size: 100% 100%;
 	z-index: 10;
-	// .light{
-	// 	background: url(../img/mainbg.jpg) no-repeat center top #000;
-	// 	background-size: 100% 100%;
-	// }
+	.light{
+		width: rem(720);
+		height: rem(683);
+		background: url(../img/light.gif) no-repeat center top;
+		background-size: 100% 100%;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		top: rem(-100);
+	}
 
 
 }
@@ -103,9 +119,9 @@ html,body{
 		transform: translateX(-50%);
 		position: absolute;
 		box-sizing: content-box;
-		border-left:solid rem(500) rgba(0,0,0,.3);
-		border-right:solid rem(500) rgba(0,0,0,.3);
-		border-bottom: solid rem(1000) rgba(0,0,0,.3);
+		border-left:solid rem(500) rgba(0,0,0,.7);
+		border-right:solid rem(500) rgba(0,0,0,.7);
+		border-bottom: solid rem(1000) rgba(0,0,0,.7);
 		top: 16%;
 	}
 	.scan-tip{
@@ -124,7 +140,7 @@ html,body{
 		position: absolute;
 		width: 100%;
 		height: 16%;
-		background: rgba(0,0,0,.3);
+		background: rgba(0,0,0,.7);
 	}
 	.scan-button{
 		background: url(../img/scanok.png) no-repeat;
@@ -144,7 +160,7 @@ html,body{
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: rgba(0,0,0,.5);
+	background: rgba(0,0,0,.7);
 	display: none;
 	z-index: 11;
 
@@ -161,7 +177,7 @@ html,body{
 	}
 }
 .intro{
-	background: rgba(0,0,0,.5);
+	background: rgba(0,0,0,.7);
 	position: absolute;
 	z-index: 10;
 	top: 0;
@@ -171,40 +187,14 @@ html,body{
 	overflow-x:hidden;
 	display: none;
 	.content{
-		width: 505px;
+		width: rem(505);
 		margin-left: rem(44);
 		margin-top:rem(70);
 		overflow: hidden;
-		.a-pic{
-			background: url(../img/pic.png) no-repeat;
-			background-size: contain;
-			overflow: hidden;
-			width: rem(454);
-			height: rem(453);
+		img{
+			width: 100%;
 		}
-		.intro1{
-			background: url(../img/intro1.png) no-repeat;
-			background-size: contain;
-			width: rem(505);
-			height: rem(565);
-			margin-top: rem(40);
-		}
-		.intro2{
-			background: url(../img/intro2.png) no-repeat;
-			background-size: contain;
-			width: rem(505);
-			height: rem(606);
-			margin-top: rem(60);
 
-		}
-		.intro3{
-			background: url(../img/intro3.png) no-repeat;
-			background-size: contain;
-			width: rem(503);
-			height: rem(388);
-			margin-top: rem(60);
-			padding-bottom: rem(60);
-		}
 
 	}
 	.f-rbutton{
@@ -213,7 +203,7 @@ html,body{
 		width: rem(128);
 		height: rem(491);
 		position: fixed;
-		right: rem(50);
+		right: rem(30);
 		top: rem(40);
 		a{
 			display: block;
@@ -247,4 +237,10 @@ html,body{
 	background-size: 100% 100%;
 	width: rem(110);
 	height: rem(29);
+}
+#threecontainer{
+	display: none;
+}
+#myvideo{
+	display: none;
 }
