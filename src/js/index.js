@@ -27,12 +27,21 @@ const returnVideo = $(".returnVideo");
 
 //是否支持
 let supportVideo = true;
-
+var farmerVideo;
 //点击开启
 btnOpenCamera.on('click', function() {
   startPanel.hide();
   if(supportVideo){
     scanPanel.show();
+
+      $("#threecontainer").show();
+      $("#myvideo").show();
+      farmerVideo = document.getElementById('myvideo');
+      const app = new App();
+      app.update();
+      $("#threecontainer").hide();
+      $("#myvideo").hide();
+
   }else{
     //播放视频
     videoPanel.show();
@@ -137,13 +146,10 @@ returnVideo.on('click',function(){
   introPanel.hide();
 })
 
-//loadThree();
 function loadThree() {
     $("#threecontainer").show();
-    $("#myvideovideo").show();
-    var oVideo = document.getElementById('myvideo');
-    oVideo.play();
-    const app = new App();
-    app.update();
+    $("#myvideo").show();
+    farmerVideo.play();
     console.log("started lf app!");
+
 }

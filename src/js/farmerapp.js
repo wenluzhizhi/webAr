@@ -23,11 +23,12 @@ class FarmerApp {
 
         this.controls = new DeviceOrientationControls(this.camera, this.renderer);
         this.controls.connect();
-        this.videoMaterial = new VideoMaterial(this.scene);
+
+        this.camera.rotation.x = THREE.Math.degToRad(45);
+        let top = 100;//$(".scan-boder").top();
+        let height = $(".scan-boder").height();
+        this.videoMaterial = new VideoMaterial(this.camera, this.scene, top, height);
     }
-
-
-
 
     update() {
         window.requestAnimationFrame(() => {
