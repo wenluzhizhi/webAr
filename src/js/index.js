@@ -77,7 +77,7 @@ function fail() {
 function scan() {
     scanPanel.hide();
     videoPanel.show();
-    //loadThree();
+    loadThree();
 }
 
 let deviceId; //指定调用设备ID
@@ -137,13 +137,16 @@ scanButon.on('click', function() {
 });
 //more
 moreButton.on('click',function(){
+    //alert("more button");
   videoPanel.hide();
   introPanel.show();
+    moreInof();
 })
-//
+//back
 returnVideo.on('click',function(){
   videoPanel.show();
   introPanel.hide();
+  moreInofback();
 })
 function loadThree() {
     $("#threecontainer").show();
@@ -151,4 +154,16 @@ function loadThree() {
     farmerVideo.play();
     console.log("started lf app!");
 
+}
+
+function moreInof() {
+    $("#threecontainer").hide();
+    $("#myvideo").hide();
+    farmerVideo.pause();
+
+
+}function moreInofback() {
+    $("#threecontainer").show();
+    $("#myvideo").show();
+    farmerVideo.play();
 }
