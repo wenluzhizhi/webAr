@@ -74,7 +74,7 @@ class Main {
       	{src:"../img/mainbg.jpg"},
       	{src:"../img/button.png"},
       	// {src:"../resources/farmerpainting.mp4"},
-
+        {src: video},
         {src: introImg}
     ]);
 
