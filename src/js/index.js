@@ -1,8 +1,8 @@
 
 import WebAR from './webar';
 import VConsole from './vconsole.min';
-// import App from './farmerapp.js'
-// import * as THREE from '../libs/three.module.js';
+import App from './farmerapp.js'
+import * as THREE from '../libs/three.module.js';
 //
 //
 new VConsole();
@@ -35,7 +35,7 @@ class Main {
       "001":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml",
       "002":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml"
     }
-    //const app = new App();
+    const app = new App();
     this.preloader();
     this.checkCamera();
     this.start();
@@ -124,7 +124,7 @@ class Main {
         _this.scanPanel.show();
           $("#threecontainer").show();
           $("#myvideo").show();
-          //app.update();
+          app.update();
           $("#threecontainer").hide();
           $("#myvideo").hide();
 
@@ -158,7 +158,7 @@ class Main {
   scan(){
     let top = $(".scan-boder").offset().top;
     let height = $(".scan-boder").height();
-    //app.getVideo().resetPosition(top, height);
+    app.getVideo().resetPosition(top, height);
     this.scanPanel.hide();
     this.videoPanel.show();
     this.loadThree();
@@ -171,7 +171,7 @@ class Main {
   }
   openCamera(){
 
-
+    console.log(this.deviceId);
     this.webAR.openCamera(this.video, this.deviceId).then((msg) => {
         // 打开摄像头成功
         // 将视频铺满全屏(简单处理)
@@ -196,20 +196,20 @@ class Main {
     });
   }
   checkCamera(){
-  
+
     let _this = this;
 
     this.webAR.listCamera().then((videoDevice) => {
         //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
         if (_this.isAndroid) {
             _this.deviceId = videoDevice[videoDevice.length - 1].deviceId;
-        } else if (isIphone) {
+        } else if (_this.isIphone) {
             _this.deviceId = videoDevice[0].deviceId;
         }
         //检查成功直接开启
         _this.openCamera();
     }).catch((err) => {
-        console.log(err);
+
         this.fail();
         //
     });
