@@ -47,9 +47,12 @@ html,body{
 	left: 0;
 
 }
+#video{
+	display: none;
+}
 .bgbg{
 	background: url(../img/mainbg1.png) no-repeat center;
-	background-size: contain;
+	background-size: 100%;
 	width: 100%;
 	height: rem(331);
 	position: absolute;
@@ -80,13 +83,13 @@ html,body{
 }
 .openPanel{
 	height: 100%;
-	width: rem(750);
+	width: 100%;
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
 	top: 0;
 	background: url(../img/mainbg.jpg) no-repeat center rem(-100) #000;
-	background-size: 100% 100%;
+	background-size: contain;
 	z-index: 10;
 	.light{
 		width: rem(720);

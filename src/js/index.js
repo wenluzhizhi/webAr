@@ -121,6 +121,7 @@ class Main {
       _this.startPanel.hide();
       _this.setIntroInfo();
       if(_this.supportVideo){
+        
         _this.scanPanel.show();
           $("#threecontainer").show();
           $("#myvideo").show();
@@ -189,6 +190,7 @@ class Main {
                     video.setAttribute('width', window.innerWidth.toString() + 'px');
                 }
             }
+
 
         }, 500);
     }).catch((err) => {
