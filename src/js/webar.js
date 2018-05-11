@@ -35,14 +35,14 @@ const WebAR = function(interval, recognizeUrl) {
      * @returns {Promise}
      */
     this.listCamera = function() {
-        
+
         var _this = this;
         return new Promise((resolve, reject) => {
             navigator.mediaDevices.enumerateDevices()
                 .then((devices) => {
                     console.log(devices);
                     devices.find((device) => {
-                        if (device.kind === 'videoinput') { 
+                        if (device.kind === 'videoinput') {
                             console.log(device);
                             var deviceInfo = {};
 

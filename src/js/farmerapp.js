@@ -33,13 +33,10 @@ class FarmerApp {
     }
 
     update() {
-        window.requestAnimationFrame(() => {
-            this.update();
-        });
-        this.controls.update();
-       // console.log(this.camera.rotation);
-        this.videoMaterial.update();
-        this.renderer.render(this.scene, this.camera);
+        this.renderer.animate(() => {
+            this.controls.update();
+            this.renderer.render(this.scene, this.camera);
+        })
 
     }
 

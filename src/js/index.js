@@ -29,6 +29,8 @@ class Main {
     this.supportVideo = true;
     this.farmerVideo;
     this.app;
+    //this.app=new App();
+    //this.app.update();
     this.threeContainer=$('#threecontainer');
     this.urlSearch = window.location.search;
     this.myvideo = $('#myvideo');
@@ -99,6 +101,9 @@ class Main {
     //对准完成按钮
     let _this = this;
     this.scanButon.on('click', function() {
+        let top = $(".scan-boder").offset().top;
+        let height = $(".scan-boder").height();
+        _this.app.getVideo().resetPosition(top, height);
         _this.scan();
     });
 
@@ -127,19 +132,26 @@ class Main {
   }
   start(){
     //点击体验
+      let _this = this;
     this.farmerVideo = document.getElementById('myvideo');
-    this.btnOpenCamera.on('click', ()=> {
-      this.startPanel.hide();
-      this.setIntroInfo();
-        this.threeContainer.show();
-        this.app=new App();
-        this.app.update();
-      if(this.supportVideo){
-        this.scanPanel.show();
+    this.btnOpenCamera.on('click', function() {
+      console.log('xx');
+      _this.startPanel.hide();
+      _this.setIntroInfo();
+        _this.threeContainer.show();
+        _this.app=new App();
+        _this.app.update();
+
+      if(_this.supportVideo){
+        _this.scanPanel.show();
       }else{
         //播放视频
-        this.videoPanel.show();
-        this.scan();
+          _this.videoPanel.show();
+          $('#video').hide();
+          let top = window.innerHeight * 0.16;
+          let height = window.innerHeight * 0.6;
+          _this.app.getVideo().resetPosition(top, height);
+          _this.scan();
       }
     });
 
@@ -165,12 +177,10 @@ class Main {
   }
 
   scan(){
-    let top = $(".scan-boder").offset().top;
-    let height = $(".scan-boder").height();
-    this.app.getVideo().resetPosition(top, height);
     this.scanPanel.hide();
     this.videoPanel.show();
     this.farmerVideo.play();
+    this.videoPanel[0].style.background="#00000000";
     console.log("started lf app!");
   }
   openCamera(){
@@ -179,20 +189,25 @@ class Main {
     this.webAR.openCamera(this.video, this.deviceId).then((msg) => {
         // 打开摄像头成功
         // 将视频铺满全屏(简单处理)
+
         window.setTimeout(() => {
             let videoWidth = video.offsetWidth;
             let videoHeight = video.offsetHeight;
-            if (window.innerWidth < window.innerHeight) {
+            // if (window.innerWidth < window.innerHeight) {
                 // 竖屏
-                if (videoHeight < window.innerHeight) {
-                    video.setAttribute('height', window.innerHeight.toString() + 'px');
-                }
-            } else {
-                // 横屏
-                if (videoWidth < window.innerWidth) {
-                    video.setAttribute('width', window.innerWidth.toString() + 'px');
-                }
-            }
+            // if (videoHeight < window.innerHeight) {
+                this.video.setAttribute('height', window.innerHeight.toString() + 'px');
+            // }
+            // if (videoWidth < window.innerWidth) {
+            //     video.setAttribute('width', window.innerWidth.toString() + 'px');
+            // }
+            // } else {
+            //     // 横屏
+            //     if (videoWidth < window.innerWidth) {
+            //         video.setAttribute('width', window.innerWidth.toString() + 'px');
+            //     }
+            // }
+
 
         }, 500);
     }).catch((err) => {
