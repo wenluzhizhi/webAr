@@ -118,7 +118,8 @@ class Main {
     let _this = this;
     this.farmerVideo = document.getElementById('myvideo');
     this.btnOpenCamera.on('click', function() {
-      console.log('xx');
+
+      _this.openCamera()
       _this.startPanel.hide();
       _this.setIntroInfo();
       if(_this.supportVideo){
@@ -184,6 +185,10 @@ class Main {
             // if (window.innerWidth < window.innerHeight) {
                 // 竖屏
             // if (videoHeight < window.innerHeight) {
+              // if(videoWidth < window.innerWidth){
+              //   video.setAttribute('widhth', window.innerWidth.toString() + 'px');
+              // }
+                video.setAttribute('widhth', window.innerWidth.toString() + 'px');
                 video.setAttribute('height', window.innerHeight.toString() + 'px');
             // }
             // if (videoWidth < window.innerWidth) {
@@ -214,7 +219,7 @@ class Main {
             _this.deviceId = videoDevice[0].deviceId;
         }
         //检查成功直接开启
-        _this.openCamera();
+        //_this.openCamera();
     }).catch((err) => {
 
         this.fail();
