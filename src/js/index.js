@@ -35,7 +35,7 @@ class Main {
       "001":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml",
       "002":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml"
     }
-    const app = new App();
+    this.app = new App();
     this.preloader();
     this.checkCamera();
     this.start();
@@ -124,7 +124,7 @@ class Main {
         _this.scanPanel.show();
           $("#threecontainer").show();
           $("#myvideo").show();
-          app.update();
+          _this.app.update();
           $("#threecontainer").hide();
           $("#myvideo").hide();
 
@@ -158,7 +158,7 @@ class Main {
   scan(){
     let top = $(".scan-boder").offset().top;
     let height = $(".scan-boder").height();
-    app.getVideo().resetPosition(top, height);
+    this.app.getVideo().resetPosition(top, height);
     this.scanPanel.hide();
     this.videoPanel.show();
     this.loadThree();
