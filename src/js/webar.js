@@ -89,7 +89,7 @@ const WebAR = function(interval, recognizeUrl) {
         };
 
         canvasElement.setAttribute('width', videoSetting.width + 'px');
-        canvasElement.setAttribute('height', videoSetting.height + 'px');
+       canvasElement.setAttribute('height', videoSetting.height + 'px');
 
         // 如果是切换摄像头，则需要先关闭。
         if (videoElement.srcObject) {
