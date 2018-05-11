@@ -28,19 +28,34 @@ class Main {
     this.deviceId;
     this.supportVideo = true;
     this.farmerVideo;
+    this.app;
+    this.threeContainer=$('#threecontainer');
     this.urlSearch = window.location.search;
+    this.myvideo = $('#myvideo');
     //获取url参数 ?oid=xxx
     this.oid =this.getQueryString('oid') || '001';
     this.urlMap = {
       "001":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml",
       "002":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml"
     }
-    this.app = new App();
     this.preloader();
     this.checkCamera();
     this.start();
     this.bindEvent();
+    this.initVideo();
   }
+
+    initVideo() {
+        this.myvideo.attr('playsinline', '');
+        this.myvideo.attr('x5-playsinline', '');
+        this.myvideo.attr('webkit-playsinline', '');
+        this.myvideo.attr('autoplay', '');
+        this.myvideo.attr('muted', '');
+        this.myvideo[0].loop = true;
+    }
+
+
+
   init(){
 
   }
@@ -83,7 +98,6 @@ class Main {
   bindEvent(){
     //对准完成按钮
     let _this = this;
-
     this.scanButon.on('click', function() {
         _this.scan();
     });
@@ -104,33 +118,28 @@ class Main {
 
   }
   moreInof(){
-    $("#threecontainer").hide();
-    $("#myvideo").hide();
+    this.threeContainer.hide();
     this.farmerVideo.pause();
   }
   moreInofback(){
-    $("#threecontainer").show();
-    $("#myvideo").show();
+    this.threeContainer.show();
     this.farmerVideo.play();
   }
   start(){
     //点击体验
-    let _this = this;
     this.farmerVideo = document.getElementById('myvideo');
-    this.btnOpenCamera.on('click', function() {
-      _this.startPanel.hide();
-      _this.setIntroInfo();
-      if(_this.supportVideo){
-        _this.scanPanel.show();
-          $("#threecontainer").show();
-          $("#myvideo").show();
-          _this.app.update();
-          $("#threecontainer").hide();
-          $("#myvideo").hide();
-
+    this.btnOpenCamera.on('click', ()=> {
+      this.startPanel.hide();
+      this.setIntroInfo();
+        this.threeContainer.show();
+        this.app=new App();
+        this.app.update();
+      if(this.supportVideo){
+        this.scanPanel.show();
       }else{
         //播放视频
-        _this.videoPanel.show();
+        this.videoPanel.show();
+        this.scan();
       }
     });
 
@@ -161,11 +170,6 @@ class Main {
     this.app.getVideo().resetPosition(top, height);
     this.scanPanel.hide();
     this.videoPanel.show();
-    this.loadThree();
-  }
-  loadThree(){
-    $("#threecontainer").show();
-    $("#myvideo").show();
     this.farmerVideo.play();
     console.log("started lf app!");
   }
