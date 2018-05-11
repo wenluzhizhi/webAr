@@ -118,10 +118,11 @@ class Main {
     let _this = this;
     this.farmerVideo = document.getElementById('myvideo');
     this.btnOpenCamera.on('click', function() {
+      console.log('xx');
       _this.startPanel.hide();
       _this.setIntroInfo();
       if(_this.supportVideo){
-        
+
         _this.scanPanel.show();
           $("#threecontainer").show();
           $("#myvideo").show();
@@ -176,20 +177,24 @@ class Main {
     this.webAR.openCamera(this.video, this.deviceId).then((msg) => {
         // 打开摄像头成功
         // 将视频铺满全屏(简单处理)
+
         window.setTimeout(() => {
             let videoWidth = video.offsetWidth;
             let videoHeight = video.offsetHeight;
-            if (window.innerWidth < window.innerHeight) {
+            // if (window.innerWidth < window.innerHeight) {
                 // 竖屏
-                if (videoHeight < window.innerHeight) {
-                    video.setAttribute('height', window.innerHeight.toString() + 'px');
-                }
-            } else {
-                // 横屏
-                if (videoWidth < window.innerWidth) {
-                    video.setAttribute('width', window.innerWidth.toString() + 'px');
-                }
-            }
+            // if (videoHeight < window.innerHeight) {
+                video.setAttribute('height', window.innerHeight.toString() + 'px');
+            // }
+            // if (videoWidth < window.innerWidth) {
+            //     video.setAttribute('width', window.innerWidth.toString() + 'px');
+            // }
+            // } else {
+            //     // 横屏
+            //     if (videoWidth < window.innerWidth) {
+            //         video.setAttribute('width', window.innerWidth.toString() + 'px');
+            //     }
+            // }
 
 
         }, 500);

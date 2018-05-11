@@ -155,7 +155,7 @@ html, body {
 }
 
 #video {
-  display: none;
+  margin: 0 auto;
 }
 
 .bgbg {
