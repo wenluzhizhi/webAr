@@ -12,13 +12,9 @@ class VideoMaterial {
         this.camera = camera;
         this.scene = scene;
         this.video = $('#myvideo')[0];
-        this.image = document.createElement('canvas');
-        this.image.width = this.width;
-        this.image.height = this.height;
-        this.imageContext = this.image.getContext('2d');
-        this.imageContext.fillStyle = '#000000';
-        this.imageContext.fillRect(0, 0, this.width, this.height);
-        this.texture = new THREE.Texture(this.image);
+        this.texture = new THREE.VideoTexture(this.video, THREE.UVMapping,
+            THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping, THREE.LinearFilter,
+            THREE.LinearFilter, THREE.RGBFormat, THREE.UnsignedByteType);
         this.material = new THREE.MeshBasicMaterial({ map: this.texture, overdraw: 0.5 });
         this.plane = new THREE.PlaneGeometry(this.width, this.height, 4, 4);
         this.mesh = new THREE.Mesh(this.plane, this.material);
@@ -34,18 +30,6 @@ class VideoMaterial {
         this.camera.localToWorld(this.mesh.position);
         this.camera.getWorldQuaternion(this.mesh.quaternion);
     }
-
-    /**
-     * called each frame
-     */
-    update() {
-        // console.log(this.mesh.getWorldPosition(this.mesh.position));
-        if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
-            this.imageContext.drawImage(this.video, 0, 0);
-            if (this.texture) this.texture.needsUpdate = true;
-        }
-    }
-
 }
 
 export default VideoMaterial;

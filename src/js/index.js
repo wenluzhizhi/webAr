@@ -28,19 +28,36 @@ class Main {
     this.deviceId;
     this.supportVideo = true;
     this.farmerVideo;
+    this.app;
+    //this.app=new App();
+    //this.app.update();
+    this.threeContainer=$('#threecontainer');
     this.urlSearch = window.location.search;
+    this.myvideo = $('#myvideo');
     //获取url参数 ?oid=xxx
     this.oid =this.getQueryString('oid') || '001';
     this.urlMap = {
       "001":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml",
       "002":"http://news.sina.com.cn/c/2012-05-28/010024488046.shtml"
     }
-    this.app = new App();
     this.preloader();
     this.checkCamera();
     this.start();
     this.bindEvent();
+    this.initVideo();
   }
+
+    initVideo() {
+        this.myvideo.attr('playsinline', '');
+        this.myvideo.attr('x5-playsinline', '');
+        this.myvideo.attr('webkit-playsinline', '');
+        this.myvideo.attr('autoplay', '');
+        this.myvideo.attr('muted', '');
+        this.myvideo[0].loop = true;
+    }
+
+
+
   init(){
 
   }
@@ -83,8 +100,10 @@ class Main {
   bindEvent(){
     //对准完成按钮
     let _this = this;
-
     this.scanButon.on('click', function() {
+        let top = $(".scan-boder").offset().top;
+        let height = $(".scan-boder").height();
+        _this.app.getVideo().resetPosition(top, height);
         _this.scan();
     });
 
@@ -104,36 +123,36 @@ class Main {
 
   }
   moreInof(){
-    $("#threecontainer").hide();
-    $("#myvideo").hide();
+    this.threeContainer.hide();
     this.farmerVideo.pause();
   }
   moreInofback(){
-    $("#threecontainer").show();
-    $("#myvideo").show();
+    this.threeContainer.show();
     this.farmerVideo.play();
   }
   start(){
     //点击体验
-    let _this = this;
+      let _this = this;
     this.farmerVideo = document.getElementById('myvideo');
     this.btnOpenCamera.on('click', function() {
 
       _this.openCamera()
       _this.startPanel.hide();
       _this.setIntroInfo();
+        _this.threeContainer.show();
+        _this.app=new App();
+        _this.app.update();
+
       if(_this.supportVideo){
-
         _this.scanPanel.show();
-          $("#threecontainer").show();
-          $("#myvideo").show();
-          _this.app.update();
-          $("#threecontainer").hide();
-          $("#myvideo").hide();
-
       }else{
         //播放视频
-        _this.videoPanel.show();
+          _this.videoPanel.show();
+          $('#video').hide();
+          let top = window.innerHeight * 0.16;
+          let height = window.innerHeight * 0.6;
+          _this.app.getVideo().resetPosition(top, height);
+          _this.scan();
       }
     });
 
@@ -159,17 +178,10 @@ class Main {
   }
 
   scan(){
-    let top = $(".scan-boder").offset().top;
-    let height = $(".scan-boder").height();
-    this.app.getVideo().resetPosition(top, height);
     this.scanPanel.hide();
     this.videoPanel.show();
-    this.loadThree();
-  }
-  loadThree(){
-    $("#threecontainer").show();
-    $("#myvideo").show();
     this.farmerVideo.play();
+    this.videoPanel[0].style.background="#00000000";
     console.log("started lf app!");
   }
   openCamera(){

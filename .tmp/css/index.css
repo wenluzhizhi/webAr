@@ -253,7 +253,7 @@ html, body {
           transform: translateX(-50%);
   position: absolute;
   top: 8%;
-  z-index: 1;
+  z-index: 11;
 }
 
 .scan-panel .scan-top {
@@ -273,7 +273,7 @@ html, body {
           transform: translateX(-50%);
   position: absolute;
   top: 85%;
-  z-index: 1;
+  z-index: 11;
 }
 
 .video-panel {
