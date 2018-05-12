@@ -6,7 +6,7 @@ html,body{
 	height: 100%;
 }
 
-
+// three scene z-index 0
  .wrap {
 	 position: absolute;
 	 top: 0%;
@@ -16,16 +16,15 @@ html,body{
 	 padding: 0%;
 	 width: 100%;
 	 height: 100%;
-	 z-index: 10;
  }
 
-.threecontainer {
+#threecontainer {
 	position: fixed;
 	top: 0px;
 	left: 0px;
 	cursor: pointer;
 	opacity: 1;
-	z-index: 10;
+	z-index:0;
 }
 
 
@@ -62,12 +61,13 @@ html,body{
 	display: block;
 	background: url(../img/button.gif) no-repeat;
 	background-size: cover;
-  width: rem(338);
+	width: rem(338);
 	height: rem(447);
 	left: 50%;
 	transform: translateX(-50%);
 	position: absolute;
 	top: rem(-40);
+	z-index: 100;
 
 }
 .ioswxPanel{
@@ -250,9 +250,4 @@ html,body{
 	width: rem(110);
 	height: rem(29);
 }
-#threecontainer{
-	display: none;
-}
-#myvideo{
-	display: none;
-}
+

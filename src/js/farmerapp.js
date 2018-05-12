@@ -32,6 +32,8 @@ class FarmerApp {
         return this.videoMaterial;
     }
 
+
+
     update() {
         this.renderer.animate(() => {
             this.controls.update();
