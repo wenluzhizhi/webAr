@@ -6,42 +6,97 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="yes" name="apple-touch-fullscreen" />
-    <meta content="telephone=no,email=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="telephone=no,email=no" name="format-detection"/>
     <title>webAr</title>
     <!-- Place favicon.ico in the root directory -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!--lib-flexible (https://github.com/amfe/lib-flexible)-->
     <script>
-        (function(window) { var STD_WIDTH = 750,
-            STD_FONT_SIZE = 100,
-            root = document.documentElement,
-            fontSize, scale, tDelayResize = null,
-            onResizeCbs = [],
-            pxToRem = function(px) { return px / fontSize },
-            stdPxToRem = function(stdPx) { return stdPx / STD_FONT_SIZE },
-            remToPx = function(rem) { return rem * fontSize },
-            remToStdPx = function(rem) { return rem * STD_FONT_SIZE },
-            pxToStdPx = function(px) { return px / scale },
-            stdPxToPx = function(px) { return px * scale },
-            resize = function() { scale = root.clientWidth / STD_WIDTH; var ratio = root.clientWidth / root.clientHeight; var std_ratio = 750 / 1206; if (ratio > std_ratio) { scale = std_ratio * root.clientHeight / 750 } var newFontSize = scale * STD_FONT_SIZE; if (fontSize != newFontSize) { fontSize = newFontSize;
-                autoRem.fontSize = fontSize;
-                autoRem.scale = scale;
-                root.style.fontSize = fontSize + "px";
-                onResizeCbs.forEach(function(onResizeCb) { onResizeCb() }) } },
-            delayResize = function() { clearTimeout(tDelayResize);
-                tDelayResize = setTimeout(resize, 100) },
-            onResize = function(onResizeCb) { if (onResizeCb) { onResizeCbs.push(onResizeCb) } },
-            offResize = function(onResizeCb) { if (onResizeCb) { var idx = onResizeCbs.indexOf(onResizeCb); if (~idx) { onResizeCbs.splice(idx, 1) } } else { onResizeCbs = [] } },
-            autoRem = { pxToRem: pxToRem, stdPxToRem: stdPxToRem, remToPx: remToPx, remToStdPx: remToStdPx, pxToStdPx: pxToStdPx, stdPxToPx: stdPxToPx, STD_FONT_SIZE: STD_FONT_SIZE, STD_WIDTH: STD_WIDTH, fontSize: null, scale: null, onResize: onResize, offResize: offResize };
+        (function (window) {
+            var STD_WIDTH = 750,
+                STD_FONT_SIZE = 100,
+                root = document.documentElement,
+                fontSize, scale, tDelayResize = null,
+                onResizeCbs = [],
+                pxToRem = function (px) {
+                    return px / fontSize
+                },
+                stdPxToRem = function (stdPx) {
+                    return stdPx / STD_FONT_SIZE
+                },
+                remToPx = function (rem) {
+                    return rem * fontSize
+                },
+                remToStdPx = function (rem) {
+                    return rem * STD_FONT_SIZE
+                },
+                pxToStdPx = function (px) {
+                    return px / scale
+                },
+                stdPxToPx = function (px) {
+                    return px * scale
+                },
+                resize = function () {
+                    scale = root.clientWidth / STD_WIDTH;
+                    var ratio = root.clientWidth / root.clientHeight;
+                    var std_ratio = 750 / 1206;
+                    if (ratio > std_ratio) {
+                        scale = std_ratio * root.clientHeight / 750
+                    }
+                    var newFontSize = scale * STD_FONT_SIZE;
+                    if (fontSize != newFontSize) {
+                        fontSize = newFontSize;
+                        autoRem.fontSize = fontSize;
+                        autoRem.scale = scale;
+                        root.style.fontSize = fontSize + "px";
+                        onResizeCbs.forEach(function (onResizeCb) {
+                            onResizeCb()
+                        })
+                    }
+                },
+                delayResize = function () {
+                    clearTimeout(tDelayResize);
+                    tDelayResize = setTimeout(resize, 100)
+                },
+                onResize = function (onResizeCb) {
+                    if (onResizeCb) {
+                        onResizeCbs.push(onResizeCb)
+                    }
+                },
+                offResize = function (onResizeCb) {
+                    if (onResizeCb) {
+                        var idx = onResizeCbs.indexOf(onResizeCb);
+                        if (~idx) {
+                            onResizeCbs.splice(idx, 1)
+                        }
+                    } else {
+                        onResizeCbs = []
+                    }
+                },
+                autoRem = {
+                    pxToRem: pxToRem,
+                    stdPxToRem: stdPxToRem,
+                    remToPx: remToPx,
+                    remToStdPx: remToStdPx,
+                    pxToStdPx: pxToStdPx,
+                    stdPxToPx: stdPxToPx,
+                    STD_FONT_SIZE: STD_FONT_SIZE,
+                    STD_WIDTH: STD_WIDTH,
+                    fontSize: null,
+                    scale: null,
+                    onResize: onResize,
+                    offResize: offResize
+                };
             resize();
             window.addEventListener("resize", delayResize, false);
-            window.autoRem = autoRem })(window);
+            window.autoRem = autoRem
+        })(window);
     </script>
     <!-- lib-flexible end-->
     <!-- build:css css/index.css -->
-    <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
+    <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css"/>
     <link rel="stylesheet" href="css/index.css">
     <!-- endbuild -->
 </head>
@@ -58,9 +113,12 @@
 <div class="container">
 
     <video id="video" playsinline=""></video>
-    <video id="myvideo"   x5-video-player-type="h5" style="display:none" height="512" width="256" loop x5-playsinline="" playsinline="" webkit-playsinline="" poster=""
-           preload="auto">
-    </video>
+    <div class="videobox" ontouchmove="return false;" style="display: none;z-index: -1">
+        <video id="myvideo" x5-video-player-type="h5" style="display:none" height="512" width="256" loop
+               x5-playsinline="" playsinline="" webkit-playsinline="" poster=""
+               preload="auto">
+        </video>
+    </div>
     <div class="openPanel">
         <div class="light">
 
@@ -70,7 +128,7 @@
         <div class="arrow">
         </div> -->
         <div class="bgbg">
-            <a id="openCamera" class="open-camera" href="javascript:;" /></a>
+            <a id="openCamera" class="open-camera" href="javascript:;"/></a>
         </div>
         <div class="company"></div>
 
@@ -109,12 +167,10 @@
     <canvas class="wrap" id="three_container">
     </canvas>
 </div>
-<script>
-</script>
 <!-- build:js js/index.js -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="js/preloadjs.min.js"></script>
-<<script src="js/soundjs.min.js"></script>
+<script src="js/soundjs.min.js"></script>
 <script src="js/adapter.js"></script>
 <script src="js/index.js"></script>
 <!-- endbuild -->

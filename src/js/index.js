@@ -52,11 +52,6 @@ class Main {
         this.myvideo[0].loop = true;
     }
 
-
-    init() {
-
-    }
-
     preloader() {
 
         let $preload = $("#preload");
@@ -93,6 +88,24 @@ class Main {
 
     }
 
+    checkCamera() {
+
+        let _this = this;
+
+        this.webAR.listCamera().then((videoDevice) => {
+            //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
+            if (_this.isAndroid) {
+                _this.deviceId = videoDevice[videoDevice.length - 1].deviceId;
+            } else if (_this.isIphone) {
+                _this.deviceId = videoDevice[0].deviceId;
+            }
+            //检查成功直接开启
+            //_this.openCamera();
+        }).catch((err) => {
+            this.fail();
+        });
+    }
+
     bindEvent() {
         //对准完成按钮
         let _this = this;
@@ -126,29 +139,20 @@ class Main {
         this.moreButton.on('click', function () {
             _this.videoPanel.hide();
             _this.introPanel.show();
-            _this.moreInof();
+            this.threeContainer.hide();
+            this.myvideo[0].pause();
         })
 
         //back
         this.returnVideo.on('click', function () {
             _this.videoPanel.show();
             _this.introPanel.hide();
-            _this.moreInofback();
+            this.threeContainer.show();
+            this.myvideo[0].play();
         })
 
 
     }
-
-    moreInof() {
-        this.threeContainer.hide();
-        this.myvideo[0].pause();
-    }
-
-    moreInofback() {
-        this.threeContainer.show();
-        this.myvideo[0].play();
-    }
-
 
     //设置作者简介信息;
     setIntroInfo() {
@@ -175,10 +179,11 @@ class Main {
         this.scanPanel.hide();
         this.videoPanel.show();
         this.myvideo[0].play();
-        this.videoPanel[0].style.background = "#00000000";
+        this.videoPanel.css("background", "none");
         console.log("started lf app!");
     }
 
+    //this.btnOpenCamera.on 调用
     openCamera() {
 
         console.log(this.deviceId);
@@ -188,26 +193,6 @@ class Main {
             video.setAttribute('height', window.innerHeight.toString() + 'px');
         }).catch((err) => {
             alert('打开视频设备失败');
-        });
-    }
-
-    checkCamera() {
-
-        let _this = this;
-
-        this.webAR.listCamera().then((videoDevice) => {
-            //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
-            if (_this.isAndroid) {
-                _this.deviceId = videoDevice[videoDevice.length - 1].deviceId;
-            } else if (_this.isIphone) {
-                _this.deviceId = videoDevice[0].deviceId;
-            }
-            //检查成功直接开启
-            //_this.openCamera();
-        }).catch((err) => {
-
-            this.fail();
-            //
         });
     }
 
