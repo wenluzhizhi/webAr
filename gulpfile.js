@@ -92,6 +92,11 @@ gulp.task('img',()=>{
   return gulp.src('src/img/*')
   .pipe(gulp.dest('dist/img'));
 })
+gulp.task('resources',()=>{
+  return gulp.src('src/resources/*')
+  .pipe(gulp.dest('dist/resources'));
+})
+
 
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
@@ -132,7 +137,7 @@ gulp.task('serve:dist', ['default'], () => {
     });
 });
 
-gulp.task('build', ['lint', 'html']);
+gulp.task('build', ['lint', 'html','img','resources']);
 gulp.task('default', () => {
     return new Promise(resolve => {
         dev = false;

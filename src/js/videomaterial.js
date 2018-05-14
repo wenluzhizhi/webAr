@@ -19,16 +19,20 @@ class VideoMaterial {
         this.plane = new THREE.PlaneGeometry(this.width, this.height, 4, 4);
         this.mesh = new THREE.Mesh(this.plane, this.material);
         this.mesh.scale.x = this.scale;
-        this.scene.add(this.mesh);
     }
 
-    resetPosition(top, height) {
+    show(top, height) {
         let y = this.height * (window.innerHeight * 0.5 - (top + height * 0.5)) / height;
         let z = -((this.height * window.innerHeight) / (2.0 * height * Math.tan(THREE.Math.degToRad(0.5 * this.camera.fov))));
         this.mesh.position.set(0., y, z);
         this.camera.updateMatrixWorld(true);
         this.camera.localToWorld(this.mesh.position);
         this.camera.getWorldQuaternion(this.mesh.quaternion);
+        this.scene.add(this.mesh);
+    }
+
+    hide(){
+        this.scene.remove(this.mesh);
     }
 }
 

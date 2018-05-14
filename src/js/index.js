@@ -32,6 +32,8 @@ class Main {
         this.threeContainer = $('#threecontainer');
         this.urlSearch = window.location.search;
         this.myvideo = $('#myvideo');
+        this.onVideoPlaying = this.onPlaying.bind(this);
+        this.myvideo[0].addEventListener("playing", this.onVideoPlaying, false);
         //获取url参数 ?oid=xxx
         this.oid = this.getQueryString('oid') || '001';
         this.urlMap = {
@@ -44,6 +46,10 @@ class Main {
 
         this.resizeCallback = this.onResize.bind(this);
         window.addEventListener('resize', this.resizeCallback, false);
+    }
+
+    onPlaying(){
+        this.myvideo[0].pause();
     }
 
     /**
@@ -82,7 +88,6 @@ class Main {
             {src: "img/button.gif"},
             {src: "img/mainbg.jpg"},
             {src: "img/button.png"},
-            // {src:"../resources/farmerpainting.mp4"},
             {src: video},
             {src: introImg}
         ]);
@@ -114,6 +119,8 @@ class Main {
         this.btnOpenCamera.on('click', function () {
             _this.startPanel.hide();
             if (_this.supportVideo) {
+                _this.myvideo[0].play();
+
                 _this.openCamera();
                 _this.scanPanel.show();
             } else {
@@ -122,7 +129,7 @@ class Main {
                 $('#video').hide();
                 let top = window.innerHeight * 0.16;
                 let height = window.innerHeight * 0.6;
-                _this.app.getVideo().resetPosition(top, height);
+                _this.app.getVideo().show(top, height);
                 _this.scan();
             }
         });
@@ -131,7 +138,7 @@ class Main {
         this.scanButon.on('click', function () {
             let top = $(".scan-boder").offset().top;
             let height = $(".scan-boder").height();
-            _this.app.getVideo().resetPosition(top, height);
+            _this.app.getVideo().show(top, height);
             _this.scan();
         });
 
@@ -139,7 +146,7 @@ class Main {
         this.moreButton.on('click', function () {
             _this.videoPanel.hide();
             _this.introPanel.show();
-            _this.threeContainer.hide();
+            _this.app.getVideo().hide();
             _this.myvideo[0].pause();
         })
 
@@ -177,10 +184,11 @@ class Main {
     }
 
     scan() {
-        this.threeContainer.show();
+        // this.threeContainer.show();
         this.moreButton.show();
         this.scanPanel.hide();
         this.videoPanel.show();
+        this.myvideo[0].removeEventListener("playing", this.onVideoPlaying);
         this.myvideo[0].play();
         this.videoPanel.css("background", "none");
         console.log("started lf app!");

@@ -8,7 +8,7 @@ class FarmerApp {
     constructor() {
 
         this.canvas = $('#three_container')[0];
-        let fov = 80;
+        let fov = 50;
         let tanFovPerPixel = 2 * Math.tan(THREE.Math.degToRad(fov / 2)) / Math.max(
             document.documentElement.clientWidth, document.documentElement.clientHeight);
         fov = 2 * THREE.Math.radToDeg(Math.atan(tanFovPerPixel * this.canvas.offsetHeight / 2));
