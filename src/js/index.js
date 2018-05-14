@@ -88,9 +88,7 @@ class Main {
     }
 
     checkCamera() {
-
         let _this = this;
-
         this.webAR.listCamera().then((videoDevice) => {
             //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
             if (_this.isAndroid) {
