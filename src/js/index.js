@@ -158,6 +158,10 @@ class Main {
                 _this.scanPanel.show();
             }
             else{
+                _this.introPanel.hide();
+                let top = window.innerHeight * 0.16;
+                let height = window.innerHeight * 0.6;
+                _this.app.getVideo().show(top,height);
                 _this.scan();
             }
         })
