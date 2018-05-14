@@ -41,15 +41,17 @@ class Main {
         this.preloader();
         this.checkCamera();
         this.bindEvent();
+
+        this.resizeCallback = this.onResize.bind(this);
+        window.addEventListener('resize', this.resizeCallback, false);
     }
 
-    initVideoStyle() {
-        this.myvideo.attr('playsinline', '');
-        this.myvideo.attr('x5-playsinline', '');
-        this.myvideo.attr('webkit-playsinline', '');
-        this.myvideo.attr('autoplay', '');
-        this.myvideo.attr('muted', '');
-        this.myvideo[0].loop = true;
+    /**
+     * Callback for resize event
+     */
+    onResize() {
+        console.log("window height = " + window.innerHeight);
+        this.video.style.height = window.innerHeight + "px";
     }
 
     preloader() {
@@ -57,8 +59,8 @@ class Main {
         let $progress = $("#progress");
         let $container = $(".container");
 
-        let introImg = '../img/' + this.oid + '.png';
-        let video = '../resources/' + this.oid + '.mp4';
+        let introImg = 'img/' + this.oid + '.png';
+        let video = 'resources/' + this.oid + '.mp4';
         this.setIntroInfo();
         this.preload.installPlugin(createjs.Sound);
         this.preload.on("complete", function () {
@@ -75,11 +77,11 @@ class Main {
 
         }, this);
         this.preload.loadManifest([
-            {src: "../img/scan.gif"},
-            {src: "../img/light.gif"},
-            {src: "../img/button.gif"},
-            {src: "../img/mainbg.jpg"},
-            {src: "../img/button.png"},
+            {src: "img/scan.gif"},
+            {src: "img/light.gif"},
+            {src: "img/button.gif"},
+            {src: "img/mainbg.jpg"},
+            {src: "img/button.png"},
             // {src:"../resources/farmerpainting.mp4"},
             {src: video},
             {src: introImg}
@@ -88,9 +90,7 @@ class Main {
     }
 
     checkCamera() {
-
         let _this = this;
-
         this.webAR.listCamera().then((videoDevice) => {
             //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
             if (_this.isAndroid) {
