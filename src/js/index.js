@@ -1,10 +1,10 @@
 import WebAR from './webar';
-import VConsole from './vconsole.min';
+//import VConsole from './vconsole.min';
 import App from './farmerapp.js'
 import * as THREE from '../libs/three.module.js';
 //
 //
-new VConsole();
+//new VConsole();
 
 class Main {
     constructor() {
@@ -53,14 +53,13 @@ class Main {
     }
 
     preloader() {
-
         let $preload = $("#preload");
         let $progress = $("#progress");
         let $container = $(".container");
 
         let introImg = '../img/' + this.oid + '.png';
         let video = '../resources/' + this.oid + '.mp4';
-
+        this.setIntroInfo();
         this.preload.installPlugin(createjs.Sound);
         this.preload.on("complete", function () {
             setTimeout(function () {
@@ -106,6 +105,7 @@ class Main {
         });
     }
 
+    //4个按钮的事件绑定
     bindEvent() {
         //对准完成按钮
         let _this = this;
@@ -113,7 +113,6 @@ class Main {
         //点击体验
         this.btnOpenCamera.on('click', function () {
             _this.startPanel.hide();
-            _this.setIntroInfo();
             if (_this.supportVideo) {
                 _this.openCamera();
                 _this.scanPanel.show();
@@ -128,6 +127,7 @@ class Main {
             }
         });
 
+        //点击对准完成
         this.scanButon.on('click', function () {
             let top = $(".scan-boder").offset().top;
             let height = $(".scan-boder").height();
@@ -135,25 +135,26 @@ class Main {
             _this.scan();
         });
 
-        //more
+        //点击了解更多
         this.moreButton.on('click', function () {
             _this.videoPanel.hide();
             _this.introPanel.show();
-            this.threeContainer.hide();
-            this.myvideo[0].pause();
+            _this.threeContainer.hide();
+            _this.myvideo[0].pause();
         })
 
-        //back
+        //点击返回观看
         this.returnVideo.on('click', function () {
-            _this.videoPanel.show();
-            _this.introPanel.hide();
-            this.threeContainer.show();
-            this.myvideo[0].play();
+            if(_this.supportVideo) {
+                _this.videoPanel.hide();
+                _this.introPanel.hide();
+                _this.scanPanel.show();
+            }
+            else{
+                _this.scan();
+            }
         })
-
-
     }
-
     //设置作者简介信息;
     setIntroInfo() {
         $("#myvideo").html('<source src="resources/' + this.oid + '.mp4"/>');
@@ -176,6 +177,8 @@ class Main {
     }
 
     scan() {
+        this.threeContainer.show();
+        this.moreButton.show();
         this.scanPanel.hide();
         this.videoPanel.show();
         this.myvideo[0].play();
@@ -183,7 +186,6 @@ class Main {
         console.log("started lf app!");
     }
 
-    //this.btnOpenCamera.on 调用
     openCamera() {
 
         console.log(this.deviceId);
