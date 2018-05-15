@@ -44,8 +44,10 @@ class Main {
         this.checkCamera();
         this.bindEvent();
 
-        this.resizeCallback = this.onResize.bind(this);
-        window.addEventListener('resize', this.resizeCallback, false);
+        if(this.isAndroid){
+            this.resizeCallback = this.onResize.bind(this);
+            window.addEventListener('resize', this.resizeCallback, false);
+        }
     }
 
     onPlaying(){
@@ -147,6 +149,8 @@ class Main {
             _this.videoPanel.hide();
             _this.introPanel.show();
             _this.app.getVideo().hide();
+            //个人介绍页页面支持滚动
+            $("html").addClass("introPage");
             _this.myvideo[0].pause();
         })
 
@@ -155,9 +159,15 @@ class Main {
             if(_this.supportVideo) {
                 _this.videoPanel.hide();
                 _this.introPanel.hide();
+                //删除页面滚动
+                $("html").removeClass("introPage");
                 _this.scanPanel.show();
             }
             else{
+                _this.introPanel.hide();
+                let top = window.innerHeight * 0.16;
+                let height = window.innerHeight * 0.6;
+                _this.app.getVideo().show(top,height);
                 _this.scan();
             }
         })
@@ -188,6 +198,7 @@ class Main {
         this.moreButton.show();
         this.scanPanel.hide();
         this.videoPanel.show();
+        $("html").removeClass('introPage');
         this.myvideo[0].removeEventListener("playing", this.onVideoPlaying);
         this.myvideo[0].play();
         this.videoPanel.css("background", "none");
