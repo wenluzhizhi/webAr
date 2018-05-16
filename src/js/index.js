@@ -35,10 +35,10 @@ class Main {
         this.onVideoPlaying = this.onPlaying.bind(this);
         this.myvideo[0].addEventListener("playing", this.onVideoPlaying, false);
         //获取url参数 ?oid=xxx
-        this.oid = this.getQueryString('oid') || '001';
+        this.oid = this.getQueryString('oid') || '1';
         this.urlMap = {
-            "001": "http://news.sina.com.cn/c/2012-05-28/010024488046.shtml",
-            "002": "http://news.sina.com.cn/c/2012-05-28/010024488046.shtml"
+            "1": "http://news.sina.com.cn/c/2012-05-28/010024488046.shtml",
+            "2": "http://news.sina.com.cn/c/2012-05-28/010024488046.shtml"
         }
         this.preloader();
         this.checkCamera();
@@ -122,7 +122,6 @@ class Main {
             _this.startPanel.hide();
             if (_this.supportVideo) {
                 _this.myvideo[0].play();
-
                 _this.openCamera();
                 _this.scanPanel.show();
             } else {
