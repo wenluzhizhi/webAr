@@ -15,7 +15,7 @@ class VideoMaterial {
         this.texture = new THREE.VideoTexture(this.video, THREE.UVMapping,
             THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping, THREE.LinearFilter,
             THREE.LinearFilter, THREE.RGBFormat, THREE.UnsignedByteType);
-        this.material = new THREE.MeshBasicMaterial({ map: this.texture, overdraw: 0.5 });
+        this.material = new THREE.MeshBasicMaterial({map: this.texture, overdraw: 0.5});
         this.plane = new THREE.PlaneGeometry(this.width, this.height, 4, 4);
         this.mesh = new THREE.Mesh(this.plane, this.material);
         this.mesh.scale.x = this.scale;
@@ -31,7 +31,7 @@ class VideoMaterial {
         this.scene.add(this.mesh);
     }
 
-    hide(){
+    hide() {
         this.scene.remove(this.mesh);
     }
 }

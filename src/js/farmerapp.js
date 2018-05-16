@@ -16,7 +16,12 @@ class FarmerApp {
             fov, this.canvas.offsetWidth / this.canvas.offsetHeight, 0.1, 10000);
         this.scene = new THREE.Scene();
         this.scene.add(this.camera);
-        this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: false, alpha: true, premultipliedAlpha: true });
+        this.renderer = new THREE.WebGLRenderer({
+            canvas: this.canvas,
+            antialias: false,
+            alpha: true,
+            premultipliedAlpha: true
+        });
         this.renderer.setClearColor(0x000000, 0);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight, false);
@@ -31,7 +36,6 @@ class FarmerApp {
     getVideo() {
         return this.videoMaterial;
     }
-
 
 
     update() {

@@ -44,13 +44,13 @@ class Main {
         this.checkCamera();
         this.bindEvent();
 
-        if(this.isAndroid){
+        if (this.isAndroid) {
             this.resizeCallback = this.onResize.bind(this);
             window.addEventListener('resize', this.resizeCallback, false);
         }
     }
 
-    onPlaying(){
+    onPlaying() {
         this.myvideo[0].pause();
     }
 
@@ -67,7 +67,7 @@ class Main {
         let $progress = $("#progress");
         let $container = $(".container");
 
-        let introImg = 'img/' + this.oid + '.png';
+        let introImg = 'resources/' + this.oid + '.png';
         let video = 'resources/' + this.oid + '.mp4';
         this.setIntroInfo();
         this.preload.installPlugin(createjs.Sound);
@@ -79,7 +79,6 @@ class Main {
         }, this);
 
         this.preload.on("progress", function () {
-
             var progress = Math.floor(this.preload.progress * 100);
             $("div", $progress).css("width", progress + '%');
 
@@ -97,16 +96,15 @@ class Main {
     }
 
     checkCamera() {
-        let _this = this;
         this.webAR.listCamera().then((videoDevice) => {
             //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
-            if (_this.isAndroid) {
-                _this.deviceId = videoDevice[videoDevice.length - 1].deviceId;
-            } else if (_this.isIphone) {
-                _this.deviceId = videoDevice[0].deviceId;
+            if (this.isAndroid) {
+                this.deviceId = videoDevice[videoDevice.length - 1].deviceId;
+            } else if (this.isIphone) {
+                this.deviceId = videoDevice[0].deviceId;
             }
             //检查成功直接开启
-            //_this.openCamera();
+            //this.openCamera();
         }).catch((err) => {
             this.fail();
         });
@@ -114,72 +112,69 @@ class Main {
 
     //4个按钮的事件绑定
     bindEvent() {
-        //对准完成按钮
-        let _this = this;
-
         //点击体验
-        this.btnOpenCamera.on('click', function () {
-            _this.startPanel.hide();
-            if (_this.supportVideo) {
-                _this.myvideo[0].play();
-                _this.openCamera();
-                _this.scanPanel.show();
+        this.btnOpenCamera.on('click', () => {
+            this.startPanel.hide();
+            if (this.supportVideo) {
+                this.myvideo[0].play();
+                this.openCamera();
+                this.scanPanel.show();
             } else {
                 //播放视频
-                _this.videoPanel.show();
+                this.videoPanel.show();
                 $('#video').hide();
                 let top = window.innerHeight * 0.16;
                 let height = window.innerHeight * 0.6;
-                _this.app.getVideo().show(top, height);
-                _this.scan();
+                this.app.getVideo().show(top, height);
+                this.scan();
             }
         });
 
         //点击对准完成
-        this.scanButon.on('click', function () {
+        this.scanButon.on('click', () => {
             let top = $(".scan-boder").offset().top;
             let height = $(".scan-boder").height();
-            _this.app.getVideo().show(top, height);
-            _this.scan();
+            this.app.getVideo().show(top, height);
+            this.scan();
         });
 
         //点击了解更多
-        this.moreButton.on('click', function () {
-            _this.videoPanel.hide();
-            _this.introPanel.show();
-            _this.app.getVideo().hide();
+        this.moreButton.on('click', () => {
+            this.videoPanel.hide();
+            this.introPanel.show();
+            this.app.getVideo().hide();
             //个人介绍页页面支持滚动
             $("html").addClass("introPage");
-            _this.myvideo[0].pause();
+            this.myvideo[0].pause();
         })
 
         //点击返回观看
-        this.returnVideo.on('click', function () {
-            if(_this.supportVideo) {
-                _this.videoPanel.hide();
-                _this.introPanel.hide();
+        this.returnVideo.on('click', () => {
+            if (this.supportVideo) {
+                this.videoPanel.hide();
+                this.introPanel.hide();
                 //删除页面滚动
                 $("html").removeClass("introPage");
-                _this.scanPanel.show();
+                this.scanPanel.show();
             }
-            else{
-                _this.introPanel.hide();
+            else {
+                this.introPanel.hide();
                 let top = window.innerHeight * 0.16;
                 let height = window.innerHeight * 0.6;
-                _this.app.getVideo().show(top,height);
-                _this.scan();
+                this.app.getVideo().show(top, height);
+                this.scan();
             }
         })
     }
+
     //设置作者简介信息;
     setIntroInfo() {
         $("#myvideo").html('<source src="resources/' + this.oid + '.mp4"/>');
-        $(".intro .content").html('<img src="img/' + this.oid + '.png"/>');
+        $(".intro .content").html('<img src="resources/' + this.oid + '.png"/>');
         $(".intro .introbutton").attr("href", this.urlMap[this.oid]);
     }
 
     fail() {
-
         //如果是iphone和weiChat 显示引导页
         if (this.iosversion.length >= 2) {
             this.iosversion = this.iosversion[1] >= 11;
@@ -193,7 +188,6 @@ class Main {
     }
 
     scan() {
-        // this.threeContainer.show();
         this.moreButton.show();
         this.scanPanel.hide();
         this.videoPanel.show();
@@ -222,8 +216,6 @@ class Main {
         if (r != null) return unescape(r[2]);
         return null;
     }
-
-
 }
 
 new Main();
