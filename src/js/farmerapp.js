@@ -6,7 +6,6 @@ import {Mesh, MeshLambertMaterial} from "../libs/three.module";
 
 class FarmerApp {
     constructor() {
-
         this.canvas = $('#three_container')[0];
         let fov = 50;
         let tanFovPerPixel = 2 * Math.tan(THREE.Math.degToRad(fov / 2)) / Math.max(
@@ -32,20 +31,14 @@ class FarmerApp {
         this.camera.rotation.x = THREE.Math.degToRad(45);
         this.videoMaterial = new VideoMaterial(this.camera, this.scene);
     }
-
     getVideo() {
         return this.videoMaterial;
     }
-
-
     update() {
         this.renderer.animate(() => {
             this.controls.update();
             this.renderer.render(this.scene, this.camera);
         })
-
     }
-
 }
-
 export default FarmerApp;

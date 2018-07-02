@@ -1,12 +1,6 @@
 import $ from '../libs/jquery-3.3.1.js';
 import * as THREE from '../libs/three.module.js';
 
-/**
-
- * material to play video
-
- */
-
 class VideoMaterial {
     constructor(camera, scene) {
         this.width = 256.0;
@@ -22,11 +16,7 @@ class VideoMaterial {
         this.plane = new THREE.PlaneGeometry(this.width, this.height, 4, 4);
         this.mesh = new THREE.Mesh(this.plane, this.material);
         this.mesh.scale.x = this.scale;
-
     }
-
-
-
     show(top, height) {
         let y = this.height * (window.innerHeight * 0.5 - (top + height * 0.5)) / height;
         let z = -((this.height * window.innerHeight) / (2.0 * height * Math.tan(THREE.Math.degToRad(0.5 * this.camera.fov))));
@@ -35,17 +25,9 @@ class VideoMaterial {
         this.camera.localToWorld(this.mesh.position);
         this.camera.getWorldQuaternion(this.mesh.quaternion);
         this.scene.add(this.mesh);
-
     }
-
     hide() {
-
         this.scene.remove(this.mesh);
-
     }
-
 }
-
-
-
 export default VideoMaterial;
