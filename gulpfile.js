@@ -12,9 +12,9 @@ const babelify = require('babelify');
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-var dev = true;
+var dev = false;
 const port = 9000;
-const compress = false;
+const compress = true;
 
 gulp.task('styles', () => {
     return gulp.src('src/css/*.scss')
@@ -38,7 +38,7 @@ gulp.task('styles', () => {
 gulp.task('scripts', () => {
 
     return browserify("src/js/index.js", {
-            debug: true
+            debug: dev
         })
         .transform("babelify",{ "presets": ["es2015"] })
         .bundle()
@@ -92,6 +92,11 @@ gulp.task('img',()=>{
   return gulp.src('src/img/*')
   .pipe(gulp.dest('dist/img'));
 })
+gulp.task('resources',()=>{
+  return gulp.src('src/resources/*')
+  .pipe(gulp.dest('dist/resources'));
+})
+
 
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
@@ -132,7 +137,7 @@ gulp.task('serve:dist', ['default'], () => {
     });
 });
 
-gulp.task('build', ['lint', 'html']);
+gulp.task('build', ['lint', 'html','img','resources']);
 gulp.task('default', () => {
     return new Promise(resolve => {
         dev = false;

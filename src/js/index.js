@@ -1,124 +1,221 @@
 import WebAR from './webar';
-import VConsole from './vconsole.min';
+//import VConsole from './vconsole.min';
 import App from './farmerapp.js'
 import * as THREE from '../libs/three.module.js';
+//
+//
+//new VConsole();
 
+class Main {
+    constructor() {
+        const ua = navigator.userAgent.toLowerCase();
+        this.isAndroid = /android/i.test(ua),
+            this.isIphone = /(iPhone|iPad|iPod|iOS)/i.test(ua),
+            this.isWeChat = /MicroMessenger/i.test(ua),
+            this.iosversion = ua.match(/os\s+(\d+)/i) || false;
+        this.winHeight = window.innerHeight;
+        this.webAR = new WebAR();
+        this.preload = new createjs.LoadQueue(false);
+        this.startPanel = $(".openPanel");
+        this.scanPanel = $(".scan-panel");
+        this.btnOpenCamera = $("#openCamera");
+        this.video = $('#video')[0];
+        this.scanButon = $(".scan-button");
+        this.introPanel = $(".intro");
+        this.moreButton = $(".more-button");
+        this.videoPanel = $(".video-panel");
+        this.returnVideo = $(".returnVideo");
+        this.deviceId;
+        this.supportVideo = true;
+        this.app = new App();
+        this.app.update();
+        this.threeContainer = $('#threecontainer');
+        this.urlSearch = window.location.search;
+        this.myvideo = $('#myvideo');
+        this.onVideoPlaying = this.onPlaying.bind(this);
+        this.myvideo[0].addEventListener("playing", this.onVideoPlaying, false);
+        //获取url参数 ?oid=xxx
+        this.oid = this.getQueryString('oid') || '1';
+        this.urlMap = {
+            "1": "http://news.sina.com.cn/c/2012-05-28/010024488046.shtml",
+            "2": "http://news.sina.com.cn/c/2012-05-28/010024488046.shtml"
+        }
+        this.preloader();
+        this.checkCamera();
+        this.bindEvent();
 
-new VConsole();
-
-const ua = navigator.userAgent.toLowerCase(),
-    isAndroid = /android/i.test(ua),
-    isIphone = /(iPhone|iPad|iPod|iOS)/i.test(ua),
-    isWeChat = /MicroMessenger/i.test(ua);
-
-const webAR = new WebAR();
-const startPanel = $(".openPanel");
-const scanPanel = $(".scan-panel");
-const openCamera = $("#openCamera");
-const video = $('#video')[0];
-const scanButon = $(".scan-button");
-
-
-
-
-$("#threecontainer").hide();
-$("#myvideo").hide();
-/*
- * 支持打开摄像头
- */
-function success(){
-    //显示启动页
-    startPanel.show();
-}
-/*
- * 不支持开启摄像头
- */
-function fail(){
-    //如果是iphone和weiChat 显示引导页
-    if (isIphone && isWeChat) {
-        $(".ioswxPanel").show();
-        return;
+        if (this.isAndroid) {
+            this.resizeCallback = this.onResize.bind(this);
+            window.addEventListener('resize', this.resizeCallback, false);
+        }
     }
 
-    //
-}
-/*
- * 摄像头开启成功
- */
-function openSuccess(){
-    startPanel.hide();
-    scanPanel.show();
-}
-//识别
-function scan(){
-    scanPanel.hide();
-    loadThree();
-}
+    onPlaying() {
+        this.myvideo[0].pause();
+    }
 
+    /**
+     * Callback for resize event
+     */
+    onResize() {
+        console.log("window height = " + window.innerHeight);
+        this.video.style.height = window.innerHeight + "px";
+    }
 
-let deviceId; //指定调用设备ID
-// 列出视频设备
-webAR.listCamera()
-    .then((videoDevice) => {
-        console.log(videoDevice);
-        //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
-        if(isAndroid){
-            console.log('android');
-            deviceId = videoDevice[videoDevice.length -1].deviceId;
-        }else if(isIphone){
-            deviceId = videoDevice[0].deviceId;
-        }
-        success();
+    preloader() {
+        let $preload = $("#preload");
+        let $progress = $("#progress");
+        let $container = $(".container");
 
-    })
-    .catch((err) => {
-        console.log(err);
-        fail();
-        //
-    });
+        let introImg = 'resources/' + this.oid + '.png';
+        let video = 'resources/' + this.oid + '.mp4';
+        this.setIntroInfo();
+        this.preload.installPlugin(createjs.Sound);
+        this.preload.on("complete", function () {
+            setTimeout(function () {
+                $preload.hide();
+                $container.show();
+            }, 200)
+        }, this);
 
+        this.preload.on("progress", function () {
+            var progress = Math.floor(this.preload.progress * 100);
+            $("div", $progress).css("width", progress + '%');
 
-openCamera.on('click', function() {
-    webAR.openCamera(video, deviceId)
-        .then((msg) => {
-            // 打开摄像头成功
-            // 将视频铺满全屏(简单处理)
-            window.setTimeout(() => {
-                let videoWidth = video.offsetWidth;
-                let videoHeight = video.offsetHeight;
-                if (window.innerWidth < window.innerHeight) {
-                    // 竖屏
-                    if (videoHeight < window.innerHeight) {
-                        video.setAttribute('height', window.innerHeight.toString() + 'px');
-                    }
-                } else {
-                    // 横屏
-                    if (videoWidth < window.innerWidth) {
-                        video.setAttribute('width', window.innerWidth.toString() + 'px');
-                    }
-                }
-            }, 500);
+        }, this);
+        this.preload.loadManifest([
+            {src: "img/scan.gif"},
+            {src: "img/light.gif"},
+            {src: "img/button.gif"},
+            {src: "img/mainbg.jpg"},
+            {src: "img/button.png"},
+            {src: video},
+            {src: introImg}
+        ]);
 
-            openSuccess();
+    }
 
+    checkCamera() {
+        this.webAR.listCamera().then((videoDevice) => {
+            //测了一些手机，android后置摄像头应该是数组的最后一个，苹果是第一个
+            if (this.isAndroid) {
+                this.deviceId = videoDevice[videoDevice.length - 1].deviceId;
+            } else if (this.isIphone) {
+                this.deviceId = videoDevice[0].deviceId;
+            }
+            //检查成功直接开启
+            //this.openCamera();
+        }).catch((err) => {
+            this.fail();
+        });
+    }
 
-        })
-        .catch((err) => {
-            alert('打开视频设备失败');
+    //4个按钮的事件绑定
+    bindEvent() {
+        //点击体验
+        this.btnOpenCamera.on('click', () => {
+            this.startPanel.hide();
+            if (this.supportVideo) {
+                this.myvideo[0].play();
+                this.openCamera();
+                this.scanPanel.show();
+            } else {
+                //播放视频
+                this.videoPanel.show();
+                $('#video').hide();
+                let top = window.innerHeight * 0.16;
+                let height = window.innerHeight * 0.6;
+                this.app.getVideo().show(top, height);
+                this.scan();
+            }
         });
 
-});
-//对准完成按钮
-scanButon.on('click',function(){
-    scan();
-})
-//loadThree();
-function loadThree() {
-    $("#threecontainer").show();
-    $("#myvideovideo").show();
-    var oVideo = document.getElementById('myvideo');
-    oVideo.play();
-    const app = new App();
-    app.update();
-    console.log("started lf app!");
+        //点击对准完成
+        this.scanButon.on('click', () => {
+            let top = $(".scan-boder").offset().top;
+            let height = $(".scan-boder").height();
+            this.app.getVideo().show(top, height);
+            this.scan();
+        });
+
+        //点击了解更多
+        this.moreButton.on('click', () => {
+            this.videoPanel.hide();
+            this.introPanel.show();
+            this.app.getVideo().hide();
+            //个人介绍页页面支持滚动
+            $("html").addClass("introPage");
+            this.myvideo[0].pause();
+        })
+
+        //点击返回观看
+        this.returnVideo.on('click', () => {
+            if (this.supportVideo) {
+                this.videoPanel.hide();
+                this.introPanel.hide();
+                //删除页面滚动
+                $("html").removeClass("introPage");
+                this.scanPanel.show();
+            }
+            else {
+                this.introPanel.hide();
+                let top = window.innerHeight * 0.16;
+                let height = window.innerHeight * 0.6;
+                this.app.getVideo().show(top, height);
+                this.scan();
+            }
+        })
+    }
+
+    //设置作者简介信息;
+    setIntroInfo() {
+        $("#myvideo").html('<source src="resources/' + this.oid + '.mp4"/>');
+        $(".intro .content").html('<img src="resources/' + this.oid + '.png"/>');
+        $(".intro .introbutton").attr("href", this.urlMap[this.oid]);
+    }
+
+    fail() {
+        //如果是iphone和weiChat 显示引导页
+        if (this.iosversion.length >= 2) {
+            this.iosversion = this.iosversion[1] >= 11;
+        }
+        if (this.isIphone && this.isWeChat && this.iosversion) {
+            $(".ioswxPanel").show();
+            return;
+        }
+        //不支持
+        this.supportVideo = false;
+    }
+
+    scan() {
+        this.moreButton.show();
+        this.scanPanel.hide();
+        this.videoPanel.show();
+        $("html").removeClass('introPage');
+        this.myvideo[0].removeEventListener("playing", this.onVideoPlaying);
+        this.myvideo[0].play();
+        this.videoPanel.css("background", "none");
+        console.log("started lf app!");
+    }
+
+    openCamera() {
+
+        console.log(this.deviceId);
+        this.webAR.openCamera(this.video, this.deviceId).then((msg) => {
+            // 打开摄像头成功
+            // 将视频铺满全屏(简单处理)
+            video.setAttribute('height', window.innerHeight.toString() + 'px');
+        }).catch((err) => {
+            alert('打开视频设备失败');
+        });
+    }
+
+    getQueryString(name) {
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        let r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
 }
+
+new Main();

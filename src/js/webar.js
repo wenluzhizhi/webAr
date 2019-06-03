@@ -35,14 +35,14 @@ const WebAR = function(interval, recognizeUrl) {
      * @returns {Promise}
      */
     this.listCamera = function() {
-        
+
         var _this = this;
         return new Promise((resolve, reject) => {
             navigator.mediaDevices.enumerateDevices()
                 .then((devices) => {
                     console.log(devices);
                     devices.find((device) => {
-                        if (device.kind === 'videoinput') { 
+                        if (device.kind === 'videoinput') {
                             console.log(device);
                             var deviceInfo = {};
 
@@ -89,7 +89,7 @@ const WebAR = function(interval, recognizeUrl) {
         };
 
         canvasElement.setAttribute('width', videoSetting.width + 'px');
-        canvasElement.setAttribute('height', videoSetting.height + 'px');
+       canvasElement.setAttribute('height', videoSetting.height + 'px');
 
         // 如果是切换摄像头，则需要先关闭。
         if (videoElement.srcObject) {
